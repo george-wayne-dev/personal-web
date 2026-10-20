@@ -1,0 +1,120 @@
+@custom-variant dark (&:is(.dark *));
+@custom-variant data-open (&:is([data-state="open"]));
+@custom-variant data-closed (&:is([data-state="closed"]));
+@custom-variant data-active (&:is([data-state="active"]));
+
+:root {
+  --font-geist-sans: Arial;
+  --font-geist-mono: "SFMono-Regular";
+  --paper: #f4f6f3;
+  --paper-deep: #e8ede9;
+  --notes-paper: #e7efea;
+  --ink: #17211e;
+  --surface: #fcfdfc;
+  --quiet: #65716b;
+  --workbench: #9fd1ee;
+  --signal: #e8d34b;
+  --mark: #c8672e;
+  --mint: #b9e8d7;
+  --link: #2458c6;
+  --line: color-mix(in srgb, var(--ink) 22%, transparent);
+  --font-sans:
+    "Noto Sans SC", "Source Han Sans SC", "PingFang SC", var(--font-geist-sans),
+    sans-serif;
+  --font-serif:
+    "Noto Serif SC", "Source Han Serif SC", "Songti SC", STSong, serif;
+  --font-mono: var(--font-geist-mono), "SFMono-Regular", Consolas, monospace;
+  --desktop-rail: clamp(6rem, 11vw, 8.25rem);
+  --desktop-gutter: clamp(2rem, 6vw, 7.5rem);
+  --desktop-section-gap: clamp(1.5rem, 3vw, 3.75rem);
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--surface);
+  --secondary: var(--paper-deep);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-deep);
+  --muted-foreground: var(--quiet);
+  --accent: var(--signal);
+  --accent-foreground: var(--ink);
+  --destructive: #b42318;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--link);
+  --radius: 0.125rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  background: var(--paper);
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  color: inherit;
+}
+::selection {
+  background: var(--signal);
+  color: var(--ink);
+}
+:focus-visible {
+  outline: 3px solid var(--link);
+  outline-offset: 3px;
+}
+.desktop-only {
+  display: none;
+}
+.mobile-only {
+  display: block;
+}
+.micro-label {
+  margin: 0;
+  font: 600 0.72rem/1.3 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}

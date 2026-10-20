@@ -1,28 +1,20 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #f4f6f3;
-  --foreground: #17211e;
-  --surface: #fcfdfc;
-  --quiet: #65716b;
-  --link: #2458c6;
-  --mark: #c8672e;
-}
+@import "../styles/foundations.css";
+@import "../styles/site-chrome.css";
+@import "../styles/home-layout.css";
+@import "../styles/home-motherduck-desktop.css";
+@import "../styles/interior-motherduck-desktop.css";
+@import "../styles/controls.css";
+@import "../styles/evidence-tabs.css";
+@import "../styles/home-directory.css";
+@import "../styles/collections.css";
+@import "../styles/detail.css";
+@import "../styles/about.css";
+@import "../styles/footer.css";
+@import "../styles/mobile.css";
+@import "../styles/responsive.css";
+@import "../styles/mobile-motherduck.css";
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-}
-
-a {
-  color: var(--link);
-  text-underline-offset: 0.18em;
-}
+@import "../styles/content-usability.css";

@@ -22,18 +22,21 @@ export function GET() {
     .map(
       (document) => `<item>
   <title>${escapeXml(document.title)}</title>
-  <link>${siteConfig.url}${contentUrl(document)}</link>
-  <guid>${siteConfig.url}${contentUrl(document)}</guid>
+  <link>${escapeXml(`${siteConfig.url}${contentUrl(document)}`)}</link>
+  <guid isPermaLink="true">${escapeXml(`${siteConfig.url}${contentUrl(document)}`)}</guid>
   <description>${escapeXml(document.summary)}</description>
+  <category>${escapeXml(document.category)}</category>
   <pubDate>${new Date(document.date).toUTCString()}</pubDate>
 </item>`,
     )
     .join("\n");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"><channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
 <title>${escapeXml(siteConfig.name)}</title>
-<link>${siteConfig.url}</link>
+<link>${escapeXml(siteConfig.url)}</link>
+<language>zh-CN</language>
+<atom:link href="${escapeXml(`${siteConfig.url}/rss.xml`)}" rel="self" type="application/rss+xml"/>
 <description>${escapeXml(siteConfig.description)}</description>
 ${items}
 </channel></rss>`;

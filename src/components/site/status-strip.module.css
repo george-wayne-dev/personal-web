@@ -1,0 +1,37 @@
+.strip {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 18px;
+  border-bottom: 1px solid var(--ink);
+  background: var(--signal);
+  font: 600 0.68rem/1.35 var(--font-mono);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--mark);
+}
+
+.place {
+  display: none;
+  margin-left: auto;
+}
+
+@media (max-width: 520px) {
+  .strip {
+    align-items: flex-start;
+    padding-inline: 14px;
+  }
+}
+
+@media (min-width: 61.25rem) {
+  .place {
+    display: inline;
+  }
+}

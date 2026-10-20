@@ -1,0 +1,213 @@
+@media (max-width: 61.249rem) {
+  .detail-page {
+    display: block;
+    border: 0;
+  }
+  .detail-rail {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 10px 16px;
+    border: 0;
+    border-bottom: 2px solid var(--ink);
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(10px);
+  }
+  .detail-rail .back-link {
+    flex: 0 0 auto;
+    margin: 0;
+    padding-right: 14px;
+    border: 0;
+    border-right: 1px solid var(--ink);
+  }
+  .detail-rail > .micro-label {
+    display: none;
+  }
+  .detail-rail nav {
+    display: flex;
+    gap: 14px;
+    margin: 0;
+  }
+  .detail-rail nav a {
+    display: block;
+    flex: 0 0 auto;
+    padding: 3px 0;
+    border: 0;
+    font-size: 0.7rem;
+  }
+  .detail-rail nav a span {
+    display: none;
+  }
+  .reading-article {
+    padding: 44px 20px 70px;
+  }
+  .detail-hero h1 {
+    font-size: clamp(2.55rem, 12vw, 4rem);
+  }
+  .detail-summary {
+    font-size: 0.98rem;
+  }
+  .project-facts {
+    grid-template-columns: 1fr;
+  }
+  .project-facts div {
+    border-right: 0;
+    border-bottom: 1px solid var(--ink);
+  }
+  .project-facts div:last-child {
+    border-bottom: 0;
+  }
+  .markdown-body {
+    margin-top: 46px;
+    font-size: 1.02rem;
+    line-height: 1.9;
+  }
+  .markdown-body h2 {
+    scroll-margin-top: 68px;
+    font-size: 1.48em;
+  }
+  .detail-evidence {
+    margin-top: 58px;
+    padding: 24px 14px 28px;
+  }
+  .detail-evidence > h2 {
+    font-size: 1.65rem;
+  }
+  .adjacent-nav {
+    grid-template-columns: 1fr;
+  }
+  .adjacent-nav a:last-child {
+    justify-content: start;
+    text-align: left;
+  }
+  .about-page {
+    display: block;
+  }
+  .about-page > .margin-rail {
+    display: none;
+  }
+  .about-hero,
+  .about-principles,
+  .about-now,
+  .about-contact {
+    padding: 44px 20px;
+  }
+  .about-hero h1 {
+    font-size: clamp(2.55rem, 12vw, 4rem);
+  }
+  .about-principles .section-heading h2 {
+    font-size: 1.9rem;
+  }
+  .about-principles summary {
+    grid-template-columns: 34px 1fr 24px;
+    font-size: 1.06rem;
+  }
+  .about-principles details p {
+    margin-left: 34px;
+  }
+  .about-now {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .about-now h2,
+  .about-contact h2 {
+    font-size: 2rem;
+  }
+  .site-footer {
+    min-height: 130px;
+    grid-template-columns: 1fr auto;
+  }
+  .site-footer p:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 61.249rem) {
+  .mobile-home-hero,
+  .mobile-collection-hero,
+  .mobile-home-section,
+  .mobile-home-workbench,
+  .mobile-workbench,
+  .mobile-index {
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
+  .mobile-home-hero h1,
+  .mobile-collection-hero h1 {
+    max-width: 780px;
+    font-size: 4.8rem;
+  }
+  .mobile-index .project-index-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .reading-article {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+}
+
+@media (min-width: 61.25rem) {
+  .desktop-only {
+    display: block;
+  }
+  .mobile-only {
+    display: none;
+  }
+  .desktop-header,
+  .home-hero,
+  .home-workbench,
+  .home-directory,
+  .home-notes,
+  .collection-page,
+  .about-page {
+    display: grid;
+  }
+  .desktop-header {
+    display: flex;
+  }
+}
+
+@media (max-width: 520px) {
+  .evidence-tab-list button {
+    min-width: 0;
+    padding-inline: 7px !important;
+  }
+  .evidence-tab-list button span {
+    display: none;
+  }
+  .evidence-window-body {
+    min-height: 340px;
+    padding: 20px 18px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .evidence-list div {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .mobile-index {
+    padding-inline: 14px;
+  }
+  .filter-buttons {
+    width: 100%;
+  }
+  .filter-buttons button {
+    padding-inline: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

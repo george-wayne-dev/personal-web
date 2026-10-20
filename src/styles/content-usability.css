@@ -1,0 +1,174 @@
+/* Shared data-driven content and keyboard-friendly controls. */
+.collection-filter-controls {
+  border-top: 1px solid var(--ink);
+  padding-block: 24px;
+}
+.collection-filter-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.collection-filter-fields label {
+  display: grid;
+  gap: 8px;
+  min-width: 130px;
+  flex: 1;
+  font-size: 13px;
+}
+.collection-filter-fields select {
+  width: 100%;
+  min-height: 44px;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  padding: 8px;
+  color: var(--ink);
+  background: var(--surface);
+  font: inherit;
+}
+.collection-filter-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+.collection-filter-summary button {
+  min-height: 44px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.home-live-entry {
+  padding-block: 26px;
+  border-bottom: 1px solid var(--line);
+}
+.home-live-entry h3,
+.home-live-featured h3 {
+  font: 600 clamp(22px, 2.5vw, 32px)/1.55 var(--font-serif);
+  margin: 12px 0;
+}
+.home-live-entry p,
+.home-live-featured p,
+.home-about-copy {
+  line-height: 1.9;
+  color: var(--quiet);
+}
+.home-live-entry a:hover,
+.home-live-featured a:hover {
+  color: var(--link);
+}
+.home-live-featured {
+  padding: clamp(24px, 4vw, 48px);
+  background: var(--workbench);
+  border: 2px solid var(--ink);
+}
+.home-live-featured p {
+  color: var(--ink);
+}
+.home-live-entry .project-open,
+.home-live-featured .project-open {
+  margin-top: 24px;
+  max-width: 200px;
+}
+.interior-project-card h2 {
+  margin-block: 16px;
+  font: 600 24px/1.5 var(--font-serif);
+}
+.interior-essay-item h2,
+.mdm-archive-block h2 {
+  margin-block: 12px;
+  font: 600 23px/1.6 var(--font-serif);
+}
+.mdm-archive-block ul {
+  list-style: none;
+  padding: 0;
+}
+.mdm-archive-block p {
+  line-height: 1.85;
+}
+.mdm-archive-block a {
+  display: block;
+}
+.mdm-archive-block time {
+  display: block;
+  margin-top: 14px;
+}
+.mdm-menu-sheet {
+  overflow-y: auto;
+}
+.mdm-detail-prose img,
+.mdm-detail-prose video,
+.mdm-detail-prose iframe,
+.mdm-detail-prose audio {
+  max-width: 100%;
+}
+.mdm-detail-prose iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  height: auto;
+}
+.mdm-detail-prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 16px;
+  background: var(--surface);
+}
+.mdm-detail-prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.mdm-detail-prose a {
+  color: var(--link);
+  text-decoration: underline;
+}
+.home-live-entry,
+.home-live-featured,
+.interior-project-card,
+.mdm-detail-prose {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+[id] {
+  scroll-margin-top: 80px;
+}
+@media (max-width: 767px) {
+  .collection-filter-fields {
+    gap: 12px;
+  }
+  .collection-filter-fields label {
+    min-width: calc(50% - 12px);
+    width: calc(50% - 12px);
+  }
+  .home-live-entry h3 {
+    font-size: 22px;
+  }
+  .mdm-section-head h2 {
+    font: 600 28px/1.4 var(--font-serif);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: 12px 18px;
+  color: var(--ink);
+  background: var(--surface);
+  transform: translateY(-160%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+.mdm-detail-article > section > ul {
+  line-height: 2;
+}
+.mdm-detail-article > section > ul a {
+  color: var(--link);
+  text-decoration: underline;
+}

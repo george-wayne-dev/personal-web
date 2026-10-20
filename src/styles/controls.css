@@ -1,0 +1,20 @@
+.hard-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  margin-top: 26px;
+  padding: 9px 14px;
+  border: 2px solid var(--ink);
+  background: var(--signal);
+  font: 650 0.78rem var(--font-mono);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+.hard-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}

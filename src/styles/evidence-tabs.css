@@ -1,0 +1,102 @@
+.evidence-tabs {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  min-width: 0;
+  gap: 0 !important;
+}
+.evidence-tab-list {
+  width: 100% !important;
+  height: auto !important;
+  flex-direction: row !important;
+  justify-content: start !important;
+  gap: 0 !important;
+  padding: 0 !important;
+}
+.evidence-tab-list button {
+  min-height: 44px;
+  flex: 0 1 130px !important;
+  gap: 8px !important;
+  border: 2px solid var(--ink) !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  padding: 8px 13px !important;
+  background: color-mix(in srgb, var(--workbench) 65%, white) !important;
+  color: var(--ink) !important;
+  font: 650 0.78rem var(--font-sans) !important;
+}
+.evidence-tab-list button:last-child {
+  border-right: 2px solid var(--ink) !important;
+}
+.evidence-tab-list button[data-state="active"],
+.evidence-tab-list button[data-active] {
+  background: var(--signal) !important;
+}
+.evidence-tab-list button::after {
+  display: none !important;
+}
+.evidence-tab-list button span {
+  font: 0.62rem var(--font-mono);
+}
+.evidence-panel {
+  width: 100%;
+  min-width: 0;
+  margin-top: -2px;
+}
+.evidence-window-bar {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  border: 2px solid var(--ink);
+  background: var(--paper-deep);
+}
+.evidence-window-bar > span {
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--surface);
+}
+.evidence-window-bar > span:first-child {
+  background: var(--mark);
+}
+.evidence-window-bar code {
+  margin-left: auto;
+  font: 0.62rem var(--font-mono);
+}
+.evidence-window-body {
+  min-height: 310px;
+  padding: 28px;
+  border: 2px solid var(--ink);
+  border-top: 0;
+  background: var(--surface);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+.evidence-window-body h3 {
+  margin: 8px 0 0;
+  font: 600 1.65rem/1.25 var(--font-serif);
+}
+.evidence-summary {
+  color: var(--quiet);
+  line-height: 1.7;
+}
+.evidence-list {
+  margin: 24px 0 0;
+}
+.evidence-list div {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 18px;
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+}
+.evidence-list dt {
+  font: 0.7rem var(--font-mono);
+}
+.evidence-list dd {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
