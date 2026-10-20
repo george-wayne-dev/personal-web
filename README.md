@@ -78,3 +78,5 @@ Cloudflare Pages 可使用以下配置：
 当前工程本身即仓库根目录，无需另设构建根目录。使用私有内容时，需要另行配置受限的构建访问权限和内容检出步骤，或从本地已验证的 `out/` 上传；不要把仓库令牌写进源码。代码推送到 GitHub 与生产部署是两个独立步骤。
 
 首次上线前，填写真实网站配置和内容，确认正式域名、联系入口及分享图，并检查 `out/robots.txt`、`out/sitemap.xml` 和 `out/rss.xml`。部署完成后可接入 Search Console 和 Bing Webmaster Tools。
+
+正式站点在部署平台设置 `SITE_URL=https://george-wayne.pages.dev`，用于 canonical、RSS、Sitemap 和分享链接；此环境变量优先于内容库 `site.json` 的 URL。Cloudflare 仅连接代码仓库，私人内容尚未接入远端构建，当前部署不会包含草稿。

@@ -67,8 +67,17 @@ function loadSiteFile() {
   };
 }
 
+const loadedSite = loadSiteFile();
+const configuredUrl = process.env.SITE_URL || loadedSite.url;
+const siteUrl = z
+  .url()
+  .refine((value) => /^https?:\/\//.test(value), "SITE_URL 须为 HTTP(S) 地址")
+  .parse(configuredUrl)
+  .replace(/\/$/, "");
+
 export const siteConfig = {
-  ...loadSiteFile(),
+  ...loadedSite,
+  url: siteUrl,
   navigation: [
     { href: "/projects", label: "作品" },
     { href: "/essays", label: "文章" },
