@@ -4,5 +4,4 @@ export type HomeViewProps = {
   projects: ContentPreview[];
   essays: ContentPreview[];
   featured?: ContentPreview;
-  description: string;
 };

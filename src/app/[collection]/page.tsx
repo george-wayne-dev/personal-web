@@ -4,6 +4,7 @@ import { CollectionView } from "@/components/content/collection-view";
 import { getCollection, isContentCollection } from "@/lib/content";
 import { collectionMeta } from "@/lib/content/presentation";
 import { siteConfig } from "@/lib/site";
+import { LandscapeShell } from "@/components/site/landscape-chrome";
 
 type PageProps = { params: Promise<{ collection: string }> };
 
@@ -31,17 +32,8 @@ export default async function CollectionPage({ params }: PageProps) {
   });
 
   return (
-    <>
-      <CollectionView
-        collection={collection}
-        items={items}
-        site={{
-          mark: siteConfig.mark,
-          name: siteConfig.name,
-          location: siteConfig.location,
-          navigation: siteConfig.navigation,
-        }}
-      />
-    </>
+    <LandscapeShell site={siteConfig} current={`/${collection}`}>
+      <CollectionView collection={collection} items={items} />
+    </LandscapeShell>
   );
 }

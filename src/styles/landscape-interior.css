@@ -1,0 +1,833 @@
+.landscape-interior > .landscape-header {
+  position: relative;
+}
+.landscape-header nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
+}
+.landscape-interior > main {
+  min-height: 45vh;
+  background: var(--land-grass);
+}
+.landscape-back {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  color: #64756b;
+  font-size: 12px;
+}
+.landscape-back:hover {
+  color: var(--land-ink);
+}
+
+/* Blog index: one featured entry in the sky, editorial rows on grass. */
+.landscape-journal-wrap {
+  max-width: 1008px;
+}
+.landscape-journal-hero {
+  padding-block: clamp(40px, 5vw, 72px) clamp(52px, 6vw, 88px);
+  background: var(--land-sky);
+}
+.landscape-journal-masthead {
+  padding-bottom: 32px;
+  border-bottom: 3px dotted #52674f33;
+}
+.landscape-journal-masthead h1 {
+  margin: 0;
+  font-size: clamp(38px, 4.5vw, 58px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.045em;
+}
+.landscape-journal-masthead p {
+  margin: 14px 0 0;
+  color: #607169;
+  font-size: 16px;
+  line-height: 1.9;
+}
+.landscape-featured-entry {
+  max-width: 760px;
+  padding-top: 36px;
+}
+.landscape-featured-entry > a {
+  display: block;
+}
+.landscape-entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  color: #64756b;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.landscape-entry-category {
+  color: #3e5144;
+  font-weight: 500;
+}
+.landscape-featured-entry h2 {
+  margin: 18px 0 0;
+  font-size: clamp(28px, 3.5vw, 43px);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+.landscape-featured-entry p {
+  max-width: 40em;
+  margin: 18px 0 0;
+  color: #607169;
+  font-size: 17px;
+  line-height: 1.85;
+}
+.landscape-featured-entry h2 > span,
+.landscape-entry-copy h3 > span {
+  display: inline-block;
+  opacity: 0;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+  font-size: 0.7em;
+}
+:is(.landscape-featured-entry, .landscape-editorial-entry)
+  a:is(:hover, :focus-visible)
+  :is(h2, h3) {
+  color: #396c44;
+}
+:is(.landscape-featured-entry, .landscape-editorial-entry)
+  a:is(:hover, :focus-visible)
+  :is(h2, h3)
+  > span {
+  opacity: 1;
+  transform: translateX(3px);
+}
+.landscape-horizon {
+  display: block;
+  width: 100%;
+  height: 120px;
+  margin-bottom: -1px;
+  background: var(--land-sky);
+  image-rendering: pixelated;
+}
+.landscape-index {
+  padding-block: 34px 76px;
+}
+.landscape-index-heading h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.landscape-index-heading {
+  margin-bottom: 8px;
+}
+.landscape-editorial-entry {
+  border-bottom: 1px solid #52674f33;
+}
+.landscape-editorial-entry > a {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 40px;
+  padding-block: 30px;
+}
+.landscape-editorial-entry .landscape-entry-meta {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding-top: 5px;
+}
+.landscape-entry-copy {
+  min-width: 0;
+}
+.landscape-entry-copy h3 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+.landscape-editorial-entry:first-child h3 {
+  font-size: 30px;
+}
+.landscape-entry-copy p {
+  max-width: 44em;
+  margin: 12px 0 0;
+  color: var(--land-muted);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+/* The article remains centered; the wide-screen contents sit outside it. */
+.landscape-article-header {
+  padding-block: clamp(32px, 5vw, 64px) clamp(32px, 4vw, 52px);
+  background: var(--land-sky);
+}
+.landscape-reading-column {
+  width: min(100%, 720px);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 40px);
+}
+.landscape-article-header h1 {
+  margin: 20px 0;
+  font-size: clamp(32px, 3.7vw, 50px);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
+}
+.landscape-article-summary {
+  margin: 0;
+  color: #607169;
+  font-size: 18px;
+  line-height: 1.85;
+}
+.landscape-reading-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 24px;
+  color: #64756b;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.landscape-draft {
+  padding-inline: 6px;
+  border-radius: 3px;
+  color: #755c23;
+  background: #f5e7b8;
+}
+.landscape-reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  width: min(100%, 720px);
+  margin-inline: auto;
+  padding: 40px clamp(20px, 5vw, 40px) 72px;
+}
+.landscape-reader-body {
+  min-width: 0;
+}
+.landscape-reader-aside {
+  min-width: 0;
+}
+.landscape-toc {
+  border-block: 1px solid #52674f33;
+}
+.landscape-toc summary {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  list-style: none;
+  color: #53664c;
+  font-size: 12px;
+  cursor: pointer;
+}
+.landscape-toc summary::-webkit-details-marker {
+  display: none;
+}
+.landscape-toc[open] summary > span {
+  transform: rotate(45deg);
+}
+.landscape-toc nav {
+  display: grid;
+  padding: 0 0 16px;
+  gap: 2px;
+}
+.landscape-toc nav a {
+  padding: 8px 12px;
+  border-left: 1px solid #52674f33;
+  color: #52674f;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.landscape-toc nav a:is(:hover, [aria-current="location"]) {
+  border-left-color: #21452d;
+  color: #21452d;
+}
+.landscape-article-end {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid #52674f33;
+}
+.landscape-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.landscape-tags a {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  color: #52674f;
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.landscape-tags a:hover {
+  color: #21452d;
+}
+.landscape-updated {
+  margin: 16px 0 0;
+  color: #52674f;
+  font-size: 11px;
+}
+.landscape-filter-bar {
+  position: relative;
+  margin-bottom: 36px;
+  padding-bottom: 18px;
+  border-bottom: 3px dotted #46633d38;
+}
+.landscape-filters > summary {
+  display: flex;
+  width: fit-content;
+  min-height: 44px;
+  align-items: center;
+  gap: 14px;
+  padding: 0 4px;
+  list-style: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+.landscape-filters > summary::-webkit-details-marker {
+  display: none;
+}
+.landscape-filters > summary > span {
+  color: #52674f;
+  font-size: 12px;
+}
+.landscape-filter-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 18px 0 8px;
+}
+.landscape-filter-fields label {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+  font-size: 12px;
+}
+.landscape-filter-fields select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #56734f45;
+  border-radius: 7px;
+  color: var(--land-ink);
+  background: #edf4df;
+  font: inherit;
+}
+.landscape-filter-results {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 16px;
+  color: var(--land-muted);
+  font-size: 12px;
+}
+.landscape-filter-results p {
+  margin: 0;
+}
+.landscape-filter-results button {
+  min-height: 44px;
+  padding: 8px 0;
+  border: 0;
+  color: var(--land-ink);
+  background: transparent;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.landscape-index-empty {
+  padding: 58px 20px 72px;
+  text-align: center;
+}
+.landscape-index-empty h3 {
+  font-size: 24px;
+}
+.landscape-index-empty p {
+  margin: 14px 0 0;
+  color: var(--land-muted);
+  font-size: 14px;
+}
+.landscape-article-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 36px;
+  border-radius: 10px;
+}
+.landscape-project-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0 0 40px;
+  padding: 22px 0;
+  border-top: 1px solid #52674f33;
+  border-bottom: 1px solid #52674f33;
+}
+.landscape-project-facts dt {
+  color: #637358;
+  font-size: 11px;
+}
+.landscape-project-facts dd {
+  margin: 9px 0 0;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.landscape-prose {
+  color: #303c2c;
+  font-size: 17px;
+  line-height: 1.95;
+  overflow-wrap: anywhere;
+}
+.landscape-prose > :first-child {
+  margin-top: 0;
+}
+.landscape-prose :is(h1, h2, h3, h4) {
+  margin: 2.4em 0 1em;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+}
+.landscape-prose h1 {
+  font-size: 32px;
+}
+.landscape-prose h2 {
+  padding-top: 1.1em;
+  border-top: 1px solid #52674f33;
+  font-size: 27px;
+}
+.landscape-prose h3 {
+  font-size: 22px;
+}
+.landscape-prose h4 {
+  font-size: 19px;
+}
+.landscape-prose :is(p, ul, ol) {
+  margin-block: 1.3em;
+}
+.landscape-prose :is(ul, ol) {
+  padding-left: 1.5em;
+}
+.landscape-prose li + li {
+  margin-top: 0.45em;
+}
+.landscape-prose a {
+  color: #2d6a6d;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.landscape-prose blockquote {
+  margin: 1.8em 0;
+  padding: 10px 24px;
+  border-left: 3px solid #7aa08a;
+  background: #dcedc6;
+}
+.landscape-prose code {
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
+  background: #bdd89f;
+  font: 0.82em/1.8 var(--font-mono);
+}
+.landscape-prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.8em 0;
+  padding: 20px;
+  border-radius: 8px;
+  color: #e6edd9;
+  background: #254333;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.landscape-prose pre code {
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  font-size: inherit;
+}
+.landscape-prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.8em 0;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.landscape-prose :is(th, td) {
+  padding: 12px 16px;
+  border: 1px solid #7f967144;
+  text-align: left;
+}
+.landscape-prose th {
+  background: #dcedc6;
+}
+.landscape-prose :is(img, video, iframe, audio) {
+  max-width: 100%;
+}
+.landscape-prose img {
+  display: block;
+  height: auto;
+  margin-block: 24px;
+  border-radius: 8px;
+}
+.landscape-prose :is(video, audio) {
+  width: 100%;
+}
+.landscape-prose iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+}
+.landscape-prose figcaption {
+  margin-top: 12px;
+  color: #64735e;
+  font-size: 12px;
+}
+.landscape-prose hr {
+  margin-block: 40px;
+  border: 0;
+  border-top: 1px solid #52674f33;
+}
+.landscape-evidence {
+  margin-top: 54px;
+}
+.landscape-evidence > h2,
+.landscape-related > h2 {
+  margin-bottom: 24px;
+  font-size: 25px;
+}
+.landscape-related {
+  margin-top: 60px;
+}
+.landscape-related ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.landscape-related li {
+  border-bottom: 1px solid #52674f33;
+}
+.landscape-related a {
+  display: flex;
+  min-height: 56px;
+  padding-block: 14px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.landscape-related a:hover {
+  color: #396c44;
+}
+.landscape-related a span {
+  flex: 0 0 auto;
+  color: #77906d;
+}
+.landscape-adjacent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #52674f33;
+}
+.landscape-adjacent a {
+  min-width: 0;
+}
+.landscape-adjacent a:last-child {
+  text-align: right;
+}
+.landscape-adjacent small {
+  display: block;
+  margin-bottom: 8px;
+  color: #64735e;
+  font-size: 11px;
+}
+.landscape-adjacent span {
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.landscape-about-hero {
+  padding-block: clamp(40px, 5vw, 72px) clamp(36px, 4vw, 56px);
+  background: var(--land-sky);
+}
+.landscape-about-hero h1 {
+  margin: 0;
+  font-size: clamp(38px, 4.5vw, 58px);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.04em;
+}
+.landscape-about-hero p {
+  margin: 24px 0 0;
+  padding-top: 24px;
+  border-top: 3px dotted #52674f33;
+  color: #607169;
+  font-size: 19px;
+  line-height: 1.9;
+}
+.landscape-about {
+  padding-block: 44px 72px;
+}
+.landscape-about-intro {
+  margin-bottom: 44px;
+}
+.landscape-about-intro p {
+  margin: 0;
+  color: #303c2c;
+  font-size: 20px;
+  line-height: 1.95;
+}
+.landscape-about-section {
+  padding-block: 32px;
+  border-top: 1px solid #52674f33;
+}
+.landscape-about-section > h2 {
+  margin: 0 0 24px;
+  font-size: 25px;
+  font-weight: 400;
+}
+.landscape-principles {
+  display: grid;
+  gap: 24px;
+}
+.landscape-principle h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+.landscape-principle p {
+  margin: 7px 0 0;
+  color: var(--land-muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.landscape-now-list {
+  margin: 0;
+  padding-left: 1.1em;
+  color: var(--land-muted);
+  font-size: 15px;
+  line-height: 2.4;
+}
+.landscape-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+}
+.landscape-contact-links a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.landscape-contact-links a:hover {
+  color: #396c44;
+}
+
+@media (min-width: 1240px) {
+  .landscape-reading-layout {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 720px) minmax(0, 1fr);
+    gap: 0;
+    padding-inline: 0;
+    padding-top: 52px;
+  }
+  .landscape-reader-body {
+    grid-column: 2;
+    grid-row: 1;
+    padding-inline: 40px;
+  }
+  .landscape-reader-aside {
+    grid-column: 3;
+    grid-row: 1;
+    position: sticky;
+    top: 32px;
+    width: min(100%, 232px);
+    align-self: start;
+    padding-right: 24px;
+  }
+  .landscape-toc {
+    border: 0;
+    max-height: calc(100dvh - 64px);
+    overflow-y: auto;
+  }
+  .landscape-toc summary {
+    min-height: 36px;
+    cursor: pointer;
+  }
+  .landscape-toc summary > span {
+    display: none;
+  }
+}
+@media (max-width: 720px) {
+  .landscape-journal-hero {
+    padding-block: 36px 48px;
+  }
+  .landscape-journal-masthead {
+    padding-bottom: 26px;
+  }
+  .landscape-journal-masthead p {
+    font-size: 14px;
+  }
+  .landscape-featured-entry {
+    padding-top: 28px;
+  }
+  .landscape-featured-entry h2 {
+    font-size: 28px;
+  }
+  .landscape-featured-entry p {
+    margin-top: 14px;
+    font-size: 15px;
+  }
+  .landscape-editorial-entry > a {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-block: 26px;
+  }
+  .landscape-editorial-entry .landscape-entry-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+    gap: 6px 12px;
+  }
+  .landscape-entry-copy h3 {
+    font-size: 21px;
+  }
+  .landscape-editorial-entry:first-child h3 {
+    font-size: 24px;
+  }
+  .landscape-entry-copy p {
+    font-size: 14px;
+  }
+  .landscape-entry-meta {
+    font-size: 11px;
+  }
+}
+@media (max-width: 620px) {
+  .landscape-index {
+    padding-block: 24px 48px;
+  }
+  .landscape-filter-bar {
+    margin-bottom: 0;
+    padding-bottom: 14px;
+  }
+  .landscape-filters > summary {
+    gap: 8px;
+    font-size: 13px;
+  }
+  .landscape-filter-results {
+    gap: 12px;
+    font-size: 11px;
+  }
+  .landscape-filter-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .landscape-index-empty {
+    padding: 38px 0 50px;
+  }
+  .landscape-index-empty h3 {
+    font-size: 22px;
+  }
+  .landscape-article-header h1 {
+    font-size: 32px;
+    line-height: 1.45;
+  }
+  .landscape-article-summary {
+    font-size: 16px;
+  }
+  .landscape-reading-meta {
+    gap: 8px 13px;
+    margin-top: 20px;
+    font-size: 11px;
+  }
+  .landscape-reading-layout {
+    padding-block: 30px 50px;
+  }
+  .landscape-project-facts {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .landscape-project-facts > div + div {
+    padding-top: 14px;
+    border-top: 1px solid #52674f22;
+  }
+  .landscape-project-facts dd {
+    margin-top: 5px;
+  }
+  .landscape-prose {
+    font-size: 16px;
+    line-height: 1.95;
+  }
+  .landscape-prose h2 {
+    font-size: 24px;
+  }
+  .landscape-prose h3 {
+    font-size: 20px;
+  }
+  .landscape-prose blockquote {
+    padding-inline: 16px;
+  }
+  .landscape-prose pre {
+    padding: 16px;
+    font-size: 12px;
+  }
+  .landscape-adjacent {
+    gap: 20px;
+  }
+  .landscape-adjacent span {
+    font-size: 12px;
+  }
+  .landscape-about-hero p {
+    font-size: 16px;
+  }
+  .landscape-about {
+    padding-block: 30px 40px;
+  }
+  .landscape-about-intro {
+    margin-bottom: 30px;
+  }
+  .landscape-about-intro p {
+    font-size: 18px;
+  }
+  .landscape-about-section {
+    padding-block: 28px;
+  }
+  .landscape-about-section > h2 {
+    font-size: 23px;
+  }
+  .landscape-principle p {
+    font-size: 14px;
+  }
+  .landscape-now-list {
+    font-size: 14px;
+    line-height: 2.2;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landscape-featured-entry h2 > span,
+  .landscape-entry-copy h3 > span {
+    transition: none;
+  }
+}

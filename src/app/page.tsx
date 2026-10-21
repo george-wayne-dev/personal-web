@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { DesktopHomeView } from "@/components/desktop/home-view";
-import { MobileHomeView } from "@/components/mobile/home-view";
+import { HomeView } from "@/components/home/home-view";
 import { getContent } from "@/lib/content";
-import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -15,21 +13,7 @@ export default function Home() {
     projects,
     essays,
     featured,
-    description: siteConfig.description,
   };
 
-  return (
-    <>
-      <DesktopHomeView {...viewProps} />
-      <MobileHomeView
-        {...viewProps}
-        site={{
-          mark: siteConfig.mark,
-          name: siteConfig.name,
-          location: siteConfig.location,
-          navigation: siteConfig.navigation,
-        }}
-      />
-    </>
-  );
+  return <HomeView {...viewProps} />;
 }
