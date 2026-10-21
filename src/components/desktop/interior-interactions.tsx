@@ -6,8 +6,7 @@ import { useEffect, useState } from "react";
 const chapters = [
   ["01", "作品", "/projects"],
   ["02", "文章", "/essays"],
-  ["03", "笔记", "/notes"],
-  ["04", "关于", "/about"],
+  ["03", "关于", "/about"],
 ] as const;
 
 export function InteriorChapterBar({ current }: { current: string }) {

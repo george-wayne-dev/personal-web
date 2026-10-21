@@ -10,12 +10,10 @@ export default function Home() {
   const content = getContent();
   const projects = content.filter((item) => item.collection === "projects");
   const essays = content.filter((item) => item.collection === "essays");
-  const notes = content.filter((item) => item.collection === "notes");
   const featured = projects.find((item) => item.featured) ?? projects[0];
   const viewProps = {
     projects,
     essays,
-    notes,
     featured,
     description: siteConfig.description,
   };

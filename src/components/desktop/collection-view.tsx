@@ -18,7 +18,6 @@ export function DesktopCollectionView(props: CollectionDeviceViewProps) {
       footerRail={meta.label}
       footerSignoff="留下实践，也留下尚未解决的问题。"
       footerMeta={`${items.length} entries`}
-      notes={collection === "notes"}
     >
       <section className="interior-hero" data-interior-sticky-trigger>
         <div className="motherduck-page-grid">

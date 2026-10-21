@@ -1,6 +1,6 @@
 # 个人网站
 
-基于 Next.js App Router、React 和本地 Markdown 的个人网站，包含作品、文章、笔记和关于页。支持分类、标签、年度筛选、相关内容、RSS、站点地图和结构化数据。桌面与移动端共用内容，在 `1100px` 处切换布局。
+基于 Next.js App Router、React 和本地 Markdown 的个人网站，包含作品、文章和关于页。支持分类、标签、年度筛选、相关内容、RSS、站点地图和结构化数据。桌面与移动端共用内容，在 `1100px` 处切换布局。
 
 ## 本地运行
 
@@ -44,8 +44,7 @@ SITE_CONFIG_PATH=/absolute/path/to/personal-content/site.json
 ```text
 content/
 ├─ projects/
-├─ essays/
-└─ notes/
+└─ essays/
 ```
 
 将 `templates/` 中对应模板复制到内容目录，修改文件名和 Frontmatter。文件名作为默认 slug；显式 slug 仅允许小写英文、数字和连字符。日期使用带引号的 `YYYY-MM-DD`。
@@ -80,3 +79,5 @@ Cloudflare Pages 可使用以下配置：
 首次上线前，填写真实网站配置和内容，确认正式域名、联系入口及分享图，并检查 `out/robots.txt`、`out/sitemap.xml` 和 `out/rss.xml`。部署完成后可接入 Search Console 和 Bing Webmaster Tools。
 
 正式站点在部署平台设置 `SITE_URL=https://george-wayne.pages.dev`，用于 canonical、RSS、Sitemap 和分享链接；此环境变量优先于内容库 `site.json` 的 URL。Cloudflare 仅连接代码仓库，私人内容尚未接入远端构建，当前部署不会包含草稿。
+
+原“笔记”已并入“文章”，短记录与长文统一保存在 `content/essays/`，按分类和标签区分。私人内容迁移时保留草稿状态；模板仅保留作品与文章两类。

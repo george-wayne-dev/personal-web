@@ -25,7 +25,7 @@ export function DesktopAboutView() {
           <aside className="motherduck-rail interior-hero-rail">
             <div>
               <span className="rail-label">About / Colophon</span>
-              <span className="interior-code">A.04</span>
+              <span className="interior-code">A.03</span>
             </div>
             <p className="interior-rail-copy">
               <strong>Chinese first</strong>

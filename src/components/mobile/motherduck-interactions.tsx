@@ -7,8 +7,7 @@ const homeChapters = [
   ["00", "现在", "#mobile-top"],
   ["01", "作品", "#mobile-projects"],
   ["02", "文章", "#mobile-essays"],
-  ["03", "笔记", "#mobile-notes"],
-  ["04", "关于", "#mobile-about"],
+  ["03", "关于", "#mobile-about"],
 ] as const;
 
 export function MobileHomeChapterBar() {

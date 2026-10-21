@@ -18,7 +18,6 @@ type InteriorShellProps = {
   footerRail: ReactNode;
   footerSignoff: string;
   footerMeta: string;
-  notes?: boolean;
   children: ReactNode;
 };
 
@@ -31,14 +30,10 @@ export function InteriorShell({
   footerRail,
   footerSignoff,
   footerMeta,
-  notes = false,
   children,
 }: InteriorShellProps) {
   return (
-    <div
-      className={`desktop-only motherduck-home motherduck-interior${notes ? " motherduck-interior-notes" : ""}`}
-      id="top"
-    >
+    <div className="desktop-only motherduck-home motherduck-interior" id="top">
       <div className="motherduck-site-shell">
         <a className="skip-link" href="#main-content">
           跳到正文
@@ -56,7 +51,7 @@ export function InteriorShell({
             <span className="identity-mark">{site.mark}</span>
             <span className="identity-copy">
               <span className="identity-name">{site.name}</span>
-              <span className="identity-note">Software &amp; Field Notes</span>
+              <span className="identity-note">Software &amp; Essays</span>
             </span>
           </Link>
           <span className="edition">Edition 2026 · {site.location}</span>

@@ -22,7 +22,6 @@ const routes = new Set([
   "/about",
   "/projects",
   "/essays",
-  "/notes",
   "/rss.xml",
   "/sitemap.xml",
   "/robots.txt",

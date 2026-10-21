@@ -90,9 +90,7 @@ export function MotherDuckMobileShell({
             <span className="mdm-identity-mark">{site.mark}</span>
             <span className="mdm-identity-copy">
               <span className="mdm-identity-name">{site.name}</span>
-              <span className="mdm-identity-note">
-                Software &amp; Field Notes
-              </span>
+              <span className="mdm-identity-note">Software &amp; Essays</span>
             </span>
           </Link>
           <button

@@ -24,30 +24,17 @@ export function MobileDetailView({
   const indexHref = `/${collection}`;
   const isProject = collection === "projects";
   const isEssay = collection === "essays";
-  const collectionLabel = isProject ? "作品" : isEssay ? "文章" : "笔记";
-
-  const statusLabel = isProject
-    ? `PROJECT CASE ${document.code?.replace(/\D/g, "") || ""}`
-    : isEssay
-      ? `ESSAY ${document.code?.replace(/\D/g, "") || ""}`
-      : "WORKING NOTE";
+  const collectionLabel = isProject ? "作品" : "文章";
+  const statusLabel = `${isProject ? "PROJECT CASE" : "ESSAY"} ${document.code?.replace(/\D/g, "") || ""}`;
   const statusText = isProject
     ? (document.status ?? "In progress")
-    : isEssay
-      ? `${document.readingMinutes ?? 8} min read`
-      : (document.status ?? "Growing");
+    : `${document.readingMinutes ?? 8} min read`;
   const code = document.code?.replace(" / ", ".") ?? collectionLabel;
   const displaySections = sections;
-  const footerLead = isProject
-    ? "Project case"
-    : isEssay
-      ? "Essay"
-      : "Working note";
+  const footerLead = isProject ? "Project case" : "Essay";
   const footerSignoff = isProject
     ? "案例保留过程证据，也保留尚未解决的问题。"
-    : isEssay
-      ? "一篇文章只解决一个值得重新使用的判断。"
-      : "这是一条阶段性判断，后续证据可能会改变它。";
+    : "一篇文章只解决一个值得重新使用的判断。";
 
   return (
     <MotherDuckMobileShell
@@ -63,13 +50,11 @@ export function MobileDetailView({
       footerEnd={
         isEssay
           ? `${document.readingMinutes ?? 8} MIN`
-          : isProject
-            ? formatDate(document.updated ?? document.date).slice(0, 7)
-            : (document.status ?? "GROWING")
+          : formatDate(document.updated ?? document.date).slice(0, 7)
       }
       backHref={indexHref}
       backLabel={`← ${collectionLabel}索引`}
-      className={`mdm-detail-page${collection === "notes" ? " mdm-note-detail-page" : ""}`}
+      className="mdm-detail-page"
     >
       <section className="mdm-detail-hero">
         <div className="mdm-detail-code">
@@ -96,20 +81,14 @@ export function MobileDetailView({
               </li>
             ))}
           </ul>
-          {collection === "notes" ? (
-            <span className="mdm-detail-state">
-              {document.status ?? "Growing"}
-            </span>
-          ) : (
-            <div className="mdm-detail-stat">
-              <strong>
-                {isEssay
-                  ? (document.readingMinutes ?? 8)
-                  : formatDate(document.updated ?? document.date).slice(0, 7)}
-              </strong>
-              <span>{isEssay ? "Min read" : "Updated"}</span>
-            </div>
-          )}
+          <div className="mdm-detail-stat">
+            <strong>
+              {isEssay
+                ? (document.readingMinutes ?? 8)
+                : formatDate(document.updated ?? document.date).slice(0, 7)}
+            </strong>
+            <span>{isEssay ? "Min read" : "Updated"}</span>
+          </div>
         </div>
       </section>
 

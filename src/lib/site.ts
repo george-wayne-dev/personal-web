@@ -34,7 +34,7 @@ const siteFileSchema = z.object({
 const defaults = {
   name: "个人文稿",
   mark: "M·Z",
-  description: "作品、文章与笔记。",
+  description: "作品与文章。",
   url: "https://example.com",
   location: "Shanghai",
   contacts: { email: "", github: "", rss: "" },
@@ -81,7 +81,6 @@ export const siteConfig = {
   navigation: [
     { href: "/projects", label: "作品" },
     { href: "/essays", label: "文章" },
-    { href: "/notes", label: "笔记" },
     { href: "/about", label: "关于" },
   ],
 } as const;

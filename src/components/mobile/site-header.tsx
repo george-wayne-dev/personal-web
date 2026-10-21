@@ -35,7 +35,7 @@ export function MobileHeader({ mark, name, navigation, current }: HeaderProps) {
         <SheetContent className="mobile-menu" side="right">
           <SheetHeader className="mobile-menu-head">
             <SheetTitle>{name}</SheetTitle>
-            <SheetDescription>作品、文章与正在生长的笔记。</SheetDescription>
+            <SheetDescription>作品与持续更新的文章。</SheetDescription>
           </SheetHeader>
           <nav className="mobile-menu-nav" aria-label="移动端主导航">
             <SheetClose asChild>

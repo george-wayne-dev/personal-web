@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 const chapters = [
   ["01", "作品", "#projects"],
   ["02", "文章", "#essays"],
-  ["03", "笔记", "#notes"],
-  ["04", "关于", "#about"],
+  ["03", "关于", "#about"],
 ] as const;
 
 export function DesktopChapterBar() {
@@ -24,7 +23,7 @@ export function DesktopChapterBar() {
     window.addEventListener("scroll", updateVisibility, { passive: true });
     window.addEventListener("resize", updateVisibility);
 
-    const sections = ["projects", "essays", "notes", "about"]
+    const sections = ["projects", "essays", "about"]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
     const observer = new IntersectionObserver(

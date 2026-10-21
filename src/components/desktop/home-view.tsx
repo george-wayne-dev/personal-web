@@ -3,12 +3,7 @@ import { DesktopChapterBar } from "@/components/desktop/home-interactions";
 import type { HomeViewProps } from "@/components/home-view.types";
 import { contentUrl } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
-export function DesktopHomeView({
-  projects,
-  essays,
-  notes,
-  featured,
-}: HomeViewProps) {
+export function DesktopHomeView({ projects, essays, featured }: HomeViewProps) {
   const selected = featured
     ? [
         featured,
@@ -28,12 +23,6 @@ export function DesktopHomeView({
       kicker: "Essays",
       items: essays.slice(0, 3),
     },
-    {
-      id: "notes",
-      label: "最新笔记",
-      kicker: "Working notes",
-      items: notes.slice(0, 4),
-    },
   ];
   return (
     <div className="desktop-only motherduck-home" id="top">
@@ -43,7 +32,7 @@ export function DesktopHomeView({
         </a>
         <a className="motherduck-status-strip" href="#projects">
           <strong>NOW BUILDING</strong>
-          <span>作品、文章与持续更新的笔记</span>
+          <span>作品与持续更新的文章</span>
           <span className="status-arrow" aria-hidden="true">
             →
           </span>
@@ -58,7 +47,7 @@ export function DesktopHomeView({
             <span className="identity-mark">{siteConfig.mark}</span>
             <span className="identity-copy">
               <span className="identity-name">{siteConfig.name}</span>
-              <span className="identity-note">Software &amp; Field Notes</span>
+              <span className="identity-note">Software &amp; Essays</span>
             </span>
           </Link>
           <span className="edition">Edition 2026 · {siteConfig.location}</span>
@@ -112,12 +101,8 @@ export function DesktopHomeView({
                     <span>02</span>
                     <span>文章</span>
                   </a>
-                  <a href="#notes">
-                    <span>03</span>
-                    <span>笔记</span>
-                  </a>
                   <a href="#about">
-                    <span>04</span>
+                    <span>03</span>
                     <span>关于</span>
                   </a>
                 </nav>
@@ -227,7 +212,7 @@ export function DesktopHomeView({
             <div className="motherduck-page-grid">
               <aside className="motherduck-rail section-rail">
                 <span className="section-kicker">About</span>
-                <span className="section-number">04</span>
+                <span className="section-number">03</span>
               </aside>
               <div className="motherduck-section-main">
                 <h2 className="motherduck-section-title">

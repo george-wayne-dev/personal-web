@@ -20,7 +20,7 @@ export function AboutContent() {
   return (
     <main className="about-page">
       <aside className="margin-rail">
-        <p>About / 04</p>
+        <p>About / 03</p>
         <span>Practice over profile</span>
       </aside>
       <div className="about-main">
@@ -31,7 +31,7 @@ export function AboutContent() {
           </h1>
           <p>
             我关注
-            AI、工程、产品与长期学习。这个网站用来保存其中已经形成的作品、写得较完整的判断，以及仍在变化的工作笔记。
+            AI、工程、产品与长期学习。这个网站用来保存其中已经形成的作品、实践中的取舍，以及仍在变化的判断。
           </p>
         </header>
         <section className="about-principles">

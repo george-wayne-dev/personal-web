@@ -6,14 +6,12 @@ import {
   displayDate,
   groupBy,
   kindLabels,
-  monthKey,
 } from "@/lib/content/presentation";
 import { cn } from "@/lib/utils";
 
 const filterOptions: Record<ContentCollection, string[]> = {
   projects: ["all", "ai", "web", "mobile", "other"],
-  essays: ["all", "ai", "engineering", "product", "learning"],
-  notes: ["all", "ai", "engineering", "design", "learning"],
+  essays: ["all", "ai", "engineering", "product", "design", "learning"],
 };
 
 export function FilterBar({
@@ -108,38 +106,6 @@ function EssayDirectory({ items }: { items: ContentPreview[] }) {
   );
 }
 
-function NotesLedger({ items }: { items: ContentPreview[] }) {
-  const groups = groupBy(items, (item) => monthKey(item.date));
-  return (
-    <div className="notes-ledger">
-      {Object.entries(groups).map(([month, entries]) => (
-        <section className="month-group" key={month}>
-          <div className="month-stamp">
-            <strong>{month.slice(5)}</strong>
-            <span>{month.slice(0, 4)}</span>
-          </div>
-          <div className="note-rows">
-            {entries.map((item) => (
-              <Link
-                href={contentUrl(item)}
-                className="note-row"
-                key={item.slug}
-              >
-                <code>{item.code ?? "N.--"}</code>
-                <div>
-                  <h2>{item.title}</h2>
-                  <p>{item.summary}</p>
-                </div>
-                <span>{item.status ?? "Growing"}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ))}
-    </div>
-  );
-}
-
 export function Listing({
   collection,
   items,
@@ -148,6 +114,5 @@ export function Listing({
   items: ContentPreview[];
 }) {
   if (collection === "projects") return <ProjectCards items={items} />;
-  if (collection === "essays") return <EssayDirectory items={items} />;
-  return <NotesLedger items={items} />;
+  return <EssayDirectory items={items} />;
 }

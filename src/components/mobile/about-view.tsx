@@ -19,7 +19,7 @@ export function MobileAboutView({ site }: { site: InteriorSiteConfig }) {
     >
       <section className="mdm-interior-hero">
         <div className="mdm-page-code-row">
-          <span className="mdm-page-code">A.04</span>
+          <span className="mdm-page-code">A.03</span>
           <span className="mdm-mono">About / Colophon</span>
         </div>
         <span className="mdm-eyebrow">About this person</span>

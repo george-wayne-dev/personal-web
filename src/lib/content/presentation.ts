@@ -18,13 +18,6 @@ export const collectionMeta: Record<
     description:
       "围绕 AI、工程、产品与学习方法的长文。按时间归档，不追逐更新频率。",
   },
-  notes: {
-    label: "笔记",
-    eyebrow: "Working notes / 03",
-    title: "先记下正在变化的判断。",
-    description:
-      "比文章更早、比随手记录更完整的工作笔记。它们允许暂时没有结论。",
-  },
 };
 
 export const kindLabels: Record<string, string> = {

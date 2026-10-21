@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const collections = ["projects", "essays", "notes"] as const;
+export const collections = ["projects", "essays"] as const;
 
 export type ContentCollection = (typeof collections)[number];
 

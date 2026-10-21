@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const dynamic = "force-static";
-export const alt = "个人文稿：作品、文章与笔记";
+export const alt = "个人文稿：作品与文章";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -41,7 +41,6 @@ export default function OpenGraphImage() {
       >
         <span style={{ fontSize: 82 }}>Work.</span>
         <span style={{ fontSize: 82 }}>Words.</span>
-        <span style={{ fontSize: 82 }}>Working notes.</span>
       </div>
     </div>,
     size,

@@ -7,7 +7,6 @@ import { contentUrl } from "@/lib/content";
 export function MobileHomeView({
   projects,
   essays,
-  notes,
   featured,
   description,
   site,
@@ -31,19 +30,13 @@ export function MobileHomeView({
       kicker: "Essays",
       items: essays.slice(0, 3),
     },
-    {
-      id: "notes",
-      label: "最新笔记",
-      kicker: "Working notes",
-      items: notes.slice(0, 4),
-    },
   ];
   return (
     <MotherDuckMobileShell
       site={site}
       current="/"
       statusLabel="PERSONAL NOTES"
-      statusText="作品、文章与笔记"
+      statusText="作品与文章"
       statusHref="#mobile-projects"
       menuMeta={site.location}
       footerMeta={site.name}
