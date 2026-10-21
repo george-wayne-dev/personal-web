@@ -1,8 +1,9 @@
 import type {
-  CollectionDeviceViewProps,
+  CollectionFilterProps,
   CollectionFilters,
 } from "./collection-view.types";
 import { kindLabels } from "@/lib/content/presentation";
+
 export function CollectionFilterControls({
   items,
   filteredItems,
@@ -10,7 +11,7 @@ export function CollectionFilterControls({
   onFilterChange,
   onReset,
   collection,
-}: CollectionDeviceViewProps) {
+}: CollectionFilterProps) {
   const fields: Array<{
     key: keyof CollectionFilters;
     label: string;
@@ -36,7 +37,7 @@ export function CollectionFilterControls({
     },
     {
       key: "tag",
-      label: collection === "projects" ? "技术与标签" : "标签",
+      label: "标签",
       options: [...new Set(items.flatMap((item) => item.tags))],
     },
     {
@@ -47,34 +48,51 @@ export function CollectionFilterControls({
         .reverse(),
     },
   ];
+  const active = Object.values(filters).filter(Boolean).length;
+  const meaningfulFields = fields.filter(
+    ({ key, options }) =>
+      filters[key] ||
+      (options.length &&
+        !(
+          key === "category" &&
+          options.length === 1 &&
+          options[0] === "未分类"
+        )),
+  );
+
   return (
-    <div className="collection-filter-controls">
-      <div className="collection-filter-fields">
-        {fields.map(({ key, label, options }) => (
-          <label key={key}>
-            <span>{label}</span>
-            <select
-              value={filters[key]}
-              onChange={(event) => onFilterChange(key, event.target.value)}
-            >
-              <option value="">全部</option>
-              {filters[key] && !options.includes(filters[key]) ? (
-                <option value={filters[key]}>{filters[key]}</option>
-              ) : null}
-              {options.map((option) => (
-                <option key={option} value={option}>
-                  {key === "kind" ? (kindLabels[option] ?? option) : option}
-                </option>
-              ))}
-            </select>
-          </label>
-        ))}
-      </div>
-      <div className="collection-filter-summary">
+    <div className="landscape-filter-bar">
+      <details className="landscape-filters" open={active > 0 || undefined}>
+        <summary>
+          筛选 <span>{active ? `已选 ${active} 项` : "+"}</span>
+        </summary>
+        <div className="landscape-filter-fields">
+          {meaningfulFields.map(({ key, label, options }) => (
+            <label key={key}>
+              <span>{label}</span>
+              <select
+                value={filters[key]}
+                onChange={(event) => onFilterChange(key, event.target.value)}
+              >
+                <option value="">全部</option>
+                {filters[key] && !options.includes(filters[key]) ? (
+                  <option value={filters[key]}>{filters[key]}</option>
+                ) : null}
+                {options.map((option) => (
+                  <option key={option} value={option}>
+                    {key === "kind" ? (kindLabels[option] ?? option) : option}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ))}
+        </div>
+      </details>
+      <div className="landscape-filter-results">
         <p role="status" aria-live="polite">
-          显示 {filteredItems.length} / {items.length} 条
+          {filteredItems.length} 条{active ? ` / 共 ${items.length} 条` : ""}
         </p>
-        {Object.values(filters).some(Boolean) ? (
+        {active ? (
           <button type="button" onClick={onReset}>
             清除筛选
           </button>

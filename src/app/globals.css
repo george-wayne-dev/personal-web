@@ -2,19 +2,7 @@
 @import "tw-animate-css";
 
 @import "../styles/foundations.css";
-@import "../styles/site-chrome.css";
-@import "../styles/home-layout.css";
-@import "../styles/home-motherduck-desktop.css";
-@import "../styles/interior-motherduck-desktop.css";
-@import "../styles/controls.css";
+@import "../styles/landscape-base.css";
+@import "../styles/landscape-home.css";
+@import "../styles/landscape-interior.css";
 @import "../styles/evidence-tabs.css";
-@import "../styles/home-directory.css";
-@import "../styles/collections.css";
-@import "../styles/detail.css";
-@import "../styles/about.css";
-@import "../styles/footer.css";
-@import "../styles/mobile.css";
-@import "../styles/responsive.css";
-@import "../styles/mobile-motherduck.css";
-
-@import "../styles/content-usability.css";

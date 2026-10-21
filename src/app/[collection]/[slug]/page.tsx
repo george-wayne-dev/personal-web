@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { EvidenceTabs } from "@/components/projects/evidence-tabs";
-import {
-  MobileDetailView,
-  type MobileDetailSection,
-} from "@/components/mobile/detail-view";
-import { ResponsiveHeader, SiteFooter } from "@/components/site/chrome";
+import Image from "next/image";
+import { LandscapeShell } from "@/components/site/landscape-chrome";
+import { RailcodeHorizon } from "@/components/site/railcode-horizon";
+import { ArticleToc } from "@/components/content/article-toc";
 import {
   contentUrl,
   getCollection,
@@ -22,7 +20,6 @@ import {
   displayDate,
 } from "@/lib/content/presentation";
 import { siteConfig } from "@/lib/site";
-import { cn } from "@/lib/utils";
 
 type PageProps = { params: Promise<{ collection: string; slug: string }> };
 type StaticParamsOptions = { params: { collection: string } };
@@ -76,7 +73,6 @@ export default async function ContentPage({ params }: PageProps) {
   const newer = index > 0 ? siblings[index - 1] : undefined;
   const older = index < siblings.length - 1 ? siblings[index + 1] : undefined;
   const meta = collectionMeta[collection];
-  const mobileSections = splitMobileSections(html, headings);
   const related = getContent()
     .filter(
       (item) =>
@@ -100,184 +96,143 @@ export default async function ContentPage({ params }: PageProps) {
       : {}),
   };
 
-  const article = (
-    <article className={cn("reading-article", `reading-${collection}`)}>
-      <header className="detail-hero">
-        <p className="micro-label">
-          {document.code ?? meta.eyebrow} · {displayCategory(document)}
-        </p>
-        <h1>{document.title}</h1>
-        <p className="detail-summary">{document.summary}</p>
-        <div className="detail-byline">
-          <time dateTime={document.date}>{displayDate(document.date)}</time>
-          {document.updated ? (
-            <time dateTime={document.updated}>
-              更新于 {displayDate(document.updated)}
-            </time>
-          ) : null}
-          {document.readingMinutes ? (
-            <span>{document.readingMinutes} min read</span>
-          ) : null}
-          {document.status ? <span>{document.status}</span> : null}
-          {document.draft ? <span className="draft-badge">DRAFT</span> : null}
-        </div>
-        <ul className="tag-list" aria-label="标签">
-          {document.tags.map((tag) => (
-            <li key={tag}>
-              <Link href={`/${collection}?tag=${encodeURIComponent(tag)}`}>
-                {tag}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </header>
-      {collection === "projects" ? (
-        <dl className="project-facts">
-          <div>
-            <dt>我的角色</dt>
-            <dd>{document.role ?? "设计 / 开发"}</dd>
-          </div>
-          <div>
-            <dt>使用工具</dt>
-            <dd>{document.stack ?? "持续补充"}</dd>
-          </div>
-          <div>
-            <dt>当前阶段</dt>
-            <dd>{document.state ?? document.status ?? "记录中"}</dd>
-          </div>
-        </dl>
-      ) : null}
-      <div
-        className="markdown-body"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-      {collection === "projects" && document.evidence ? (
-        <section className="detail-evidence">
-          <p className="micro-label">Evidence views</p>
-          <h2>把过程证据放回项目里</h2>
-          <EvidenceTabs views={document.evidence} />
-        </section>
-      ) : null}
-      {related.length ? (
-        <section aria-label="相关内容">
-          <h2>相关内容</h2>
-          <ul>
-            {related.map((item) => (
-              <li key={contentUrl(item)}>
-                <Link href={contentUrl(item)}>{item.title}</Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-      <nav className="adjacent-nav" aria-label="相邻内容">
-        {newer ? (
-          <Link href={contentUrl(newer)}>
-            <ArrowLeft size={17} />
-            <span>
-              <small>更新一篇</small>
-              {newer.title}
-            </span>
-          </Link>
-        ) : (
-          <span />
-        )}
-        {older ? (
-          <Link href={contentUrl(older)}>
-            <span>
-              <small>更早一篇</small>
-              {older.title}
-            </span>
-            <ArrowRight size={17} />
-          </Link>
-        ) : (
-          <span />
-        )}
-      </nav>
-    </article>
-  );
+  const facts =
+    collection === "projects"
+      ? [
+          ["我的角色", document.role],
+          ["使用工具", document.stack],
+          ["当前阶段", document.state ?? document.status],
+        ].filter(([, value]) => value)
+      : [];
 
   return (
-    <>
+    <LandscapeShell site={siteConfig} current={`/${collection}`} reading>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c"),
         }}
       />
-      <div className="desktop-only">
-        <ResponsiveHeader
-          mark={siteConfig.mark}
-          name={siteConfig.name}
-          navigation={siteConfig.navigation}
-          current={`/${collection}`}
-        />
-        <main className="detail-page">
-          <aside className="detail-rail">
-            <Link className="back-link" href={`/${collection}`}>
+      <article className="landscape-reader" aria-labelledby="article-title">
+        <header className="landscape-article-header">
+          <div className="landscape-reading-column">
+            <Link className="landscape-back" href={`/${collection}`}>
               ← 返回{meta.label}
             </Link>
-            <p className="micro-label">On this page</p>
-            <nav>
-              {headings.map((heading, headingIndex) => (
-                <a href={`#${heading.id}`} key={heading.id}>
-                  <span>{String(headingIndex + 1).padStart(2, "0")}</span>
-                  {heading.label}
-                </a>
-              ))}
+            <h1 id="article-title">{document.title}</h1>
+            <p className="landscape-article-summary">{document.summary}</p>
+            <div className="landscape-reading-meta">
+              <time dateTime={document.date}>{displayDate(document.date)}</time>
+              {document.readingMinutes ? (
+                <span>{document.readingMinutes} 分钟阅读</span>
+              ) : null}
+              {displayCategory(document) !== "未分类" ? (
+                <span>{displayCategory(document)}</span>
+              ) : null}
+              {document.draft ? (
+                <span className="landscape-draft">草稿预览</span>
+              ) : null}
+            </div>
+          </div>
+        </header>
+        <RailcodeHorizon />
+        <div className="landscape-reading-layout">
+          {headings.length ? <ArticleToc headings={headings} /> : null}
+          <div className="landscape-reader-body">
+            {document.cover ? (
+              <Image
+                className="landscape-article-cover"
+                src={document.cover}
+                alt=""
+                width={1280}
+                height={720}
+                sizes="(max-width: 720px) 100vw, 640px"
+                unoptimized
+              />
+            ) : null}
+            {facts.length ? (
+              <dl className="landscape-project-facts">
+                {facts.map(([label, value]) => (
+                  <div key={label}>
+                    <dt>{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+            <div
+              className="landscape-prose"
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+            {collection === "projects" && document.evidence ? (
+              <section
+                className="landscape-evidence"
+                aria-labelledby="evidence-title"
+              >
+                <h2 id="evidence-title">过程与证据</h2>
+                <EvidenceTabs views={document.evidence} />
+              </section>
+            ) : null}
+            <div className="landscape-article-end">
+              <ul className="landscape-tags" aria-label="标签">
+                {document.tags.map((tag) => (
+                  <li key={tag}>
+                    <Link
+                      href={`/${collection}?tag=${encodeURIComponent(tag)}`}
+                    >
+                      {tag}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              {document.updated ? (
+                <p className="landscape-updated">
+                  更新于{" "}
+                  <time dateTime={document.updated}>
+                    {displayDate(document.updated)}
+                  </time>
+                </p>
+              ) : null}
+            </div>
+            {related.length ? (
+              <section
+                className="landscape-related"
+                aria-labelledby="related-title"
+              >
+                <h2 id="related-title">接着读</h2>
+                <ul>
+                  {related.map((item) => (
+                    <li key={contentUrl(item)}>
+                      <Link href={contentUrl(item)}>
+                        {item.title}
+                        <span aria-hidden="true">↗</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+            <nav className="landscape-adjacent" aria-label="相邻内容">
+              {newer ? (
+                <Link href={contentUrl(newer)}>
+                  <small>← 更新一篇</small>
+                  <span>{newer.title}</span>
+                </Link>
+              ) : (
+                <span />
+              )}
+              {older ? (
+                <Link href={contentUrl(older)}>
+                  <small>更早一篇 →</small>
+                  <span>{older.title}</span>
+                </Link>
+              ) : (
+                <span />
+              )}
             </nav>
-          </aside>
-          {article}
-        </main>
-        <SiteFooter name={siteConfig.name} />
-      </div>
-      <MobileDetailView
-        site={siteConfig}
-        document={document}
-        sections={mobileSections}
-        adjacent={older ?? newer}
-        related={related}
-      />
-    </>
+          </div>
+        </div>
+      </article>
+    </LandscapeShell>
   );
-}
-
-function splitMobileSections(
-  html: string,
-  headings: Array<{ id: string; label: string }>,
-): MobileDetailSection[] {
-  const introEnd = headings.length
-    ? html.indexOf(`<h2 id="${headings[0].id}">`)
-    : html.length;
-  const introduction = html.slice(0, introEnd).trim();
-  const sections = headings.map((heading, index) => {
-    const headingStart = html.indexOf(`<h2 id="${heading.id}">`);
-    const bodyStart = html.indexOf("</h2>", headingStart) + 5;
-    const nextHeading = headings[index + 1];
-    const bodyEnd = nextHeading
-      ? html.indexOf(`<h2 id="${nextHeading.id}">`, bodyStart)
-      : html.length;
-    return {
-      id: `mobile-${heading.id}`,
-      label: heading.label,
-      html: html
-        .slice(bodyStart, bodyEnd)
-        .replaceAll('href="#section-', 'href="#mobile-section-'),
-    };
-  });
-  return [
-    ...(introduction
-      ? [
-          {
-            id: "mobile-introduction",
-            label: "正文",
-            html: introduction.replaceAll(
-              'href="#section-',
-              'href="#mobile-section-',
-            ),
-          },
-        ]
-      : []),
-    ...sections,
-  ];
 }

@@ -1,0 +1,25 @@
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: 12px 18px;
+  color: #221812;
+  background: #fff9de;
+  transform: translateY(-160%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+.landscape-site [id] {
+  scroll-margin-top: 32px;
+}
+.landscape-site :is(summary, select, a, button):focus-visible {
+  outline: 3px solid #2c6d8a;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

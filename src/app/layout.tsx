@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
-import { StatusStrip } from "@/components/site/chrome";
 import { DevRefresh } from "@/components/content/dev-refresh";
 import "./globals.css";
 
@@ -61,7 +60,6 @@ export default function RootLayout({
           }}
         />
         {process.env.NODE_ENV === "development" ? <DevRefresh /> : null}
-        <StatusStrip />
         {children}
       </body>
     </html>

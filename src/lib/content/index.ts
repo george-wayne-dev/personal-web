@@ -4,6 +4,9 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
 import remarkHtml from "remark-html";
+import { contentUrl } from "./urls";
+
+export { contentUrl } from "./urls";
 import {
   collections,
   contentFrontmatterSchema,
@@ -143,12 +146,6 @@ export async function renderMarkdown(markdown: string) {
 
 export function isContentCollection(value: string): value is ContentCollection {
   return collections.includes(value as ContentCollection);
-}
-
-export function contentUrl(
-  document: Pick<ContentDocument, "collection" | "slug">,
-) {
-  return `/${document.collection}/${document.slug}`;
 }
 
 /** Standalone Markdown links with title "audio" or "video" become accessible players.
