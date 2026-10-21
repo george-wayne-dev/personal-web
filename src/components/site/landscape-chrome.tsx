@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { RailcodeForest } from "./railcode-forest";
+import { SiteLogo } from "./site-logo";
 
 export type LandscapeSiteConfig = {
-  mark: string;
   name: string;
   navigation: ReadonlyArray<{ href: string; label: string }>;
   contacts?: { github?: string; rss?: string };
@@ -23,10 +23,7 @@ export function LandscapeHeader({
         href="/"
         aria-label={`${site.name} 首页`}
       >
-        <span className="landscape-mark" aria-hidden="true">
-          {site.mark}
-        </span>
-        <span>{site.name}</span>
+        <SiteLogo />
       </Link>
       <nav aria-label="主导航">
         {site.navigation.map((item) => (
