@@ -4,7 +4,6 @@ import { z } from "zod";
 
 const siteFileSchema = z.object({
   name: z.string().min(1),
-  mark: z.string().min(1),
   description: z.string().min(1),
   url: z.union([
     z.literal(""),
@@ -32,11 +31,10 @@ const siteFileSchema = z.object({
 });
 
 const defaults = {
-  name: "个人文稿",
-  mark: "M·Z",
+  name: "数字对白",
   description: "作品与文章。",
   url: "https://example.com",
-  location: "Shanghai",
+  location: "GuangZhou, China",
   contacts: { email: "", github: "", rss: "" },
 };
 

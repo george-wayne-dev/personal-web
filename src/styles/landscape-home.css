@@ -47,21 +47,36 @@
 .landscape-identity {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-size: 17px;
-  font-weight: 600;
-  white-space: nowrap;
 }
 
-.landscape-mark {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border: 1.5px solid currentColor;
-  border-radius: 50%;
-  font: 600 10px/1 var(--font-mono);
-  letter-spacing: -1px;
+.landscape-logo {
+  display: block;
+  width: auto;
+  height: 32px;
+}
+
+/* 光标进页面闪 5 下后常亮，不打扰阅读；悬停或键盘聚焦时恢复闪烁 */
+.landscape-logo-cursor {
+  fill: #e5432a;
+  animation: landscape-cursor-blink 1.06s linear 5;
+}
+
+.landscape-identity:is(:hover, :focus-visible) .landscape-logo-cursor {
+  animation-iteration-count: infinite;
+}
+
+@keyframes landscape-cursor-blink {
+  0%,
+  46% {
+    opacity: 1;
+  }
+  50%,
+  96% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .landscape-header nav {
@@ -640,14 +655,8 @@
     min-height: 74px;
     gap: 16px;
   }
-  .landscape-identity {
-    gap: 9px;
-    font-size: 15px;
-  }
-  .landscape-mark {
-    width: 29px;
-    height: 29px;
-    font-size: 9px;
+  .landscape-logo {
+    height: 28px;
   }
   .landscape-header nav {
     gap: 22px;
