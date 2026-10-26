@@ -141,6 +141,52 @@
   gap: 28px;
 }
 
+.landscape-hero-profile {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: #526a61;
+  font-size: 12px;
+}
+
+.landscape-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 12px;
+}
+
+.landscape-social-links a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  text-underline-offset: 5px;
+}
+
+.landscape-social-links a:hover {
+  text-decoration: underline;
+}
+
+.landscape-hero-profile .landscape-social-links {
+  position: relative;
+  padding-left: 21px;
+}
+
+.landscape-hero-profile .landscape-social-links::before {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 12px;
+  background: #526a6140;
+  content: "";
+}
+
 .landscape-button {
   display: inline-flex;
   min-height: 46px;
@@ -580,13 +626,22 @@
   font-weight: 500;
 }
 
-.landscape-footer nav {
+.landscape-footer-navigation {
   display: flex;
   margin-top: 16px;
   align-items: center;
   justify-content: center;
   gap: 26px;
   font-size: 12px;
+}
+
+.landscape-footer .landscape-social-links {
+  margin-top: 14px;
+  gap: 26px;
+}
+
+.landscape-footer .landscape-footer-navigation {
+  margin-top: 2px;
 }
 
 .landscape-footer nav a {
@@ -679,6 +734,18 @@
     max-width: 22em;
     margin-top: 19px;
     font-size: 13px;
+  }
+  .landscape-hero-profile {
+    margin-top: 22px;
+    flex-direction: column;
+    gap: 0;
+  }
+  .landscape-hero-profile .landscape-social-links {
+    padding-left: 0;
+    gap: 24px;
+  }
+  .landscape-hero-profile .landscape-social-links::before {
+    content: none;
   }
   .landscape-hero-actions {
     margin-top: 26px;
@@ -785,9 +852,8 @@
   .landscape-footer-name {
     font-size: 19px;
   }
-  .landscape-footer nav {
+  .landscape-footer-navigation {
     gap: 22px;
-    margin-top: 12px;
   }
 }
 

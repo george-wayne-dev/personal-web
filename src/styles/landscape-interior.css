@@ -587,6 +587,43 @@
 .landscape-about {
   padding-block: 44px 72px;
 }
+.landscape-about-location {
+  margin-top: 18px;
+  color: var(--land-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.landscape-contact-details {
+  display: grid;
+  margin-bottom: 24px;
+}
+
+.landscape-contact-details > a {
+  display: grid;
+  min-height: 56px;
+  padding-block: 14px;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 12px;
+  border-bottom: 1px solid #52674f26;
+  font-size: 15px;
+  line-height: 1.8;
+  text-underline-offset: 5px;
+}
+
+.landscape-contact-label {
+  color: var(--land-muted);
+  font-size: 13px;
+}
+
+.landscape-contact-value {
+  overflow-wrap: anywhere;
+}
+
+.landscape-contact-details > a:hover .landscape-contact-value {
+  text-decoration: underline;
+}
 .landscape-about-intro {
   margin-bottom: 44px;
 }
