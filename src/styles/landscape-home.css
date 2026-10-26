@@ -173,20 +173,6 @@
   text-decoration: underline;
 }
 
-.landscape-hero-profile .landscape-social-links {
-  position: relative;
-  padding-left: 21px;
-}
-
-.landscape-hero-profile .landscape-social-links::before {
-  position: absolute;
-  left: 0;
-  width: 1px;
-  height: 12px;
-  background: #526a6140;
-  content: "";
-}
-
 .landscape-button {
   display: inline-flex;
   min-height: 46px;
@@ -737,15 +723,9 @@
   }
   .landscape-hero-profile {
     margin-top: 22px;
-    flex-direction: column;
-    gap: 0;
   }
   .landscape-hero-profile .landscape-social-links {
-    padding-left: 0;
     gap: 24px;
-  }
-  .landscape-hero-profile .landscape-social-links::before {
-    content: none;
   }
   .landscape-hero-actions {
     margin-top: 26px;

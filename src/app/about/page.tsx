@@ -27,7 +27,6 @@ export default function AboutPage() {
             我是一名软件开发者，做网站、移动应用与 AI
             Agent，也把实践中的想法写下来。
           </p>
-          <div className="landscape-about-location">{siteConfig.location}</div>
         </div>
       </header>
       <RailcodeHorizon />
