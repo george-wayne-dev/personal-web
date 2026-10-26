@@ -53,9 +53,10 @@ export default function RootLayout({
               name: siteConfig.name,
               url: siteConfig.url,
               description: siteConfig.description,
-              sameAs: siteConfig.contacts.github
-                ? [siteConfig.contacts.github]
-                : [],
+              sameAs: [
+                siteConfig.contacts.github,
+                siteConfig.contacts.x,
+              ].filter(Boolean),
             }).replaceAll("<", "\\u003c"),
           }}
         />

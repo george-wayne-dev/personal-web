@@ -2,11 +2,12 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { RailcodeForest } from "./railcode-forest";
 import { SiteLogo } from "./site-logo";
+import { ContactLinks, type SiteContacts } from "./contact-links";
 
 export type LandscapeSiteConfig = {
   name: string;
   navigation: ReadonlyArray<{ href: string; label: string }>;
-  contacts?: { github?: string; rss?: string };
+  contacts?: SiteContacts & { rss?: string };
 };
 
 export function LandscapeHeader({
@@ -48,16 +49,12 @@ export function LandscapeFooter({ site }: { site: LandscapeSiteConfig }) {
         <Link className="landscape-footer-name" href="/about">
           {site.name} <span aria-hidden="true">↗</span>
         </Link>
-        <nav aria-label="页脚导航">
+        <ContactLinks contacts={site.contacts} />
+        <nav className="landscape-footer-navigation" aria-label="页脚导航">
           <Link href="/about">关于</Link>
-          <Link href={site.contacts?.rss || "/rss.xml"}>
-            RSS <span aria-hidden="true">↗</span>
-          </Link>
-          {site.contacts?.github ? (
-            <a href={site.contacts.github}>
-              GitHub <span aria-hidden="true">↗</span>
-            </a>
-          ) : null}
+          <a href={site.contacts?.rss || "/rss.xml"}>
+            订阅 RSS <span aria-hidden="true">↗</span>
+          </a>
           <a href="#top">回到顶部 ↑</a>
         </nav>
         <small>

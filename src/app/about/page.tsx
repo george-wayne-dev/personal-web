@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LandscapeShell } from "@/components/site/landscape-chrome";
 import { siteConfig } from "@/lib/site";
 import { RailcodeHorizon } from "@/components/site/railcode-horizon";
+import { ContactLinks } from "@/components/site/contact-links";
 
 export const metadata: Metadata = {
   title: "关于",
@@ -26,6 +27,7 @@ export default function AboutPage() {
             我是一名软件开发者，做网站、移动应用与 AI
             Agent，也把实践中的想法写下来。
           </p>
+          <div className="landscape-about-location">{siteConfig.location}</div>
         </div>
       </header>
       <RailcodeHorizon />
@@ -63,22 +65,9 @@ export default function AboutPage() {
           aria-labelledby="contact-title"
         >
           <h2 id="contact-title">保持联系</h2>
+          <ContactLinks contacts={siteConfig.contacts} detailed />
           <div className="landscape-contact-links">
-            {siteConfig.contacts.email ? (
-              <a
-                href={
-                  siteConfig.contacts.email.startsWith("mailto:")
-                    ? siteConfig.contacts.email
-                    : `mailto:${siteConfig.contacts.email}`
-                }
-              >
-                Email ↗
-              </a>
-            ) : null}
-            {siteConfig.contacts.github ? (
-              <a href={siteConfig.contacts.github}>GitHub ↗</a>
-            ) : null}
-            <Link href={siteConfig.contacts.rss || "/rss.xml"}>订阅 RSS ↗</Link>
+            <a href={siteConfig.contacts.rss || "/rss.xml"}>订阅 RSS ↗</a>
             <Link href="/projects">浏览作品 →</Link>
           </div>
         </section>

@@ -22,6 +22,12 @@ const siteFileSchema = z.object({
       z.literal(""),
       z.url().refine((value) => /^https?:\/\//.test(value)),
     ]),
+    x: z
+      .union([
+        z.literal(""),
+        z.url().refine((value) => /^https?:\/\//.test(value)),
+      ])
+      .default(""),
     rss: z.union([
       z.literal(""),
       z.literal("/rss.xml"),
@@ -34,8 +40,13 @@ const defaults = {
   name: "数字对白",
   description: "作品与文章。",
   url: "https://example.com",
-  location: "GuangZhou, China",
-  contacts: { email: "", github: "", rss: "" },
+  location: "广州市，中国",
+  contacts: {
+    email: "george.wayne.work@gmail.com",
+    github: "https://github.com/george-wayne-dev",
+    x: "https://x.com/georgewaynex",
+    rss: "/rss.xml",
+  },
 };
 
 function loadSiteFile() {

@@ -9,6 +9,7 @@ import {
   LandscapeFooter,
 } from "@/components/site/landscape-chrome";
 import { ProjectCard } from "@/components/content/project-card";
+import { ContactLinks } from "@/components/site/contact-links";
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true">{diagonal ? "↗" : "→"}</span>;
@@ -48,6 +49,10 @@ export function HomeView({ projects, essays, featured }: HomeViewProps) {
               <a className="landscape-text-link" href="#essays">
                 读点文章 <Arrow />
               </a>
+            </div>
+            <div className="landscape-hero-profile">
+              <span className="landscape-location">{siteConfig.location}</span>
+              <ContactLinks contacts={siteConfig.contacts} />
             </div>
           </section>
         </AnimatedSky>

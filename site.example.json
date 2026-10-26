@@ -2,10 +2,11 @@
   "name": "你的名字",
   "description": "在这里介绍你关注的方向与正在做的事。",
   "url": "https://example.com",
-  "location": "Shanghai",
+  "location": "广州市，中国",
   "contacts": {
     "email": "",
     "github": "",
+    "x": "",
     "rss": "/rss.xml"
   }
 }

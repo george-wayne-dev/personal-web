@@ -39,6 +39,8 @@ SITE_CONFIG_PATH=/absolute/path/to/personal-content/site.json
 
 这些是路径示例，不包含任何真实凭据。未配置 `CONTENT_ROOT` 时读取本仓库 `content/`。配置内容目录后，默认也会尝试读取其父目录的 `site.json`；`SITE_CONFIG_PATH` 可显式指定配置位置。`.env.local` 不应提交。
 
+当前作者公开的位置、GitHub、X 和邮箱同时保存在 `src/lib/site.ts` 的默认配置中，远端未接入私人内容库时也能展示。指定 `site.json` 后使用该文件中的配置；`contacts.x` 可选，填写完整主页 URL。首页、关于页和页脚共用这些联系方式，RSS 保留在关于页和页脚。
+
 代码仓库和内容仓库可以分开管理。公开仓库仅保存代码和模板，私有内容应放在另一个私有仓库；生产构建环境必须能够访问内容文件。仅连接代码仓库不会自动获得另一私有仓库中的内容。
 
 ## 写作
