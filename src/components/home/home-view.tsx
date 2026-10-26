@@ -51,7 +51,6 @@ export function HomeView({ projects, essays, featured }: HomeViewProps) {
               </a>
             </div>
             <div className="landscape-hero-profile">
-              <span className="landscape-location">{siteConfig.location}</span>
               <ContactLinks contacts={siteConfig.contacts} />
             </div>
           </section>

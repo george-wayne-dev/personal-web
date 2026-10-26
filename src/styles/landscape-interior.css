@@ -587,12 +587,6 @@
 .landscape-about {
   padding-block: 44px 72px;
 }
-.landscape-about-location {
-  margin-top: 18px;
-  color: var(--land-muted);
-  font-size: 13px;
-  line-height: 1.8;
-}
 
 .landscape-contact-details {
   display: grid;
