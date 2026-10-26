@@ -40,7 +40,7 @@ export function ContactLinks({
       aria-label="个人联系方式"
     >
       {links.map(({ label, href, detail }) => (
-        <a href={href} key={label}>
+        <a href={href} target="_blank" rel="noopener noreferrer" key={label}>
           {detailed ? (
             <>
               <span className="landscape-contact-label">{label}</span>
