@@ -5,6 +5,7 @@ import { getCollection, isContentCollection } from "@/lib/content";
 import { collectionMeta } from "@/lib/content/presentation";
 import { siteConfig } from "@/lib/site";
 import { LandscapeShell } from "@/components/site/landscape-chrome";
+import { SubscribeBlock } from "@/components/site/subscribe-block";
 
 type PageProps = { params: Promise<{ collection: string }> };
 
@@ -33,7 +34,17 @@ export default async function CollectionPage({ params }: PageProps) {
 
   return (
     <LandscapeShell site={siteConfig} current={`/${collection}`}>
-      <CollectionView collection={collection} items={items} />
+      <CollectionView
+        collection={collection}
+        items={items}
+        subscribe={
+          <SubscribeBlock
+            subscribe={siteConfig.subscribe}
+            rss={siteConfig.contacts.rss}
+            heading="h3"
+          />
+        }
+      />
     </LandscapeShell>
   );
 }

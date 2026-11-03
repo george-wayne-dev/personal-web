@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
-export const alt = `${siteConfig.name}：作品与文章`;
+export const alt = `${siteConfig.name}：一个人 + AI，从需求到上线做产品`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -28,8 +28,8 @@ export default function OpenGraphImage() {
           paddingTop: 16,
         }}
       >
-        <span>PERSONAL</span>
-        <span>JOURNAL</span>
+        <span>ONE PERSON</span>
+        <span>+ AI</span>
       </div>
       <div
         style={{
@@ -40,8 +40,8 @@ export default function OpenGraphImage() {
           gap: 24,
         }}
       >
-        <span style={{ fontSize: 82 }}>Work.</span>
-        <span style={{ fontSize: 82 }}>Words.</span>
+        <span style={{ fontSize: 82 }}>From need,</span>
+        <span style={{ fontSize: 82 }}>to launch.</span>
       </div>
     </div>,
     size,

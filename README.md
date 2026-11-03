@@ -39,7 +39,7 @@ SITE_CONFIG_PATH=/absolute/path/to/personal-content/site.json
 
 这些是路径示例，不包含任何真实凭据。未配置 `CONTENT_ROOT` 时读取本仓库 `content/`。配置内容目录后，默认也会尝试读取其父目录的 `site.json`；`SITE_CONFIG_PATH` 可显式指定配置位置。`.env.local` 不应提交。
 
-当前作者公开的位置、GitHub、X 和邮箱同时保存在 `src/lib/site.ts` 的默认配置中，远端未接入私人内容库时也能展示。指定 `site.json` 后使用该文件中的配置；`contacts.x` 可选，填写完整主页 URL。首页、关于页和页脚共用这些联系方式，RSS 保留在关于页和页脚。
+当前作者公开的位置、GitHub、X 和邮箱同时保存在 `src/lib/site.ts` 的默认配置中，远端未接入私人内容库时也能展示。指定 `site.json` 后使用该文件中的配置；`contacts.x` 可选，填写完整主页 URL。首页、关于页和页脚共用这些联系方式，RSS 保留在关于页、页脚和订阅入口。
 
 代码仓库和内容仓库可以分开管理。公开仓库仅保存代码和模板，私有内容应放在另一个私有仓库；生产构建环境必须能够访问内容文件。仅连接代码仓库不会自动获得另一私有仓库中的内容。
 
@@ -53,7 +53,34 @@ content/
 
 将 `templates/` 中对应模板复制到内容目录，修改文件名和 Frontmatter。文件名作为默认 slug；显式 slug 仅允许小写英文、数字和连字符。日期使用带引号的 `YYYY-MM-DD`。
 
-通用字段为 `title`、`summary`、`date`、`category`、`tags`、`draft`、`featured`；可选字段包括 `updated`、`slug`、`cover`、`locale`、`kind`、`code`、`status`。文章可设置 `readingMinutes`；项目可设置 `role`、`stack`、`state`、`evidence`。详细规则见 `src/lib/content/schema.ts`。
+通用字段为 `title`、`summary`、`date`、`category`、`tags`、`draft`、`featured`；可选字段包括 `updated`、`slug`、`cover`、`locale`、`kind`、`code`、`status`。文章可设置 `readingMinutes`；项目可设置 `role`、`stack`、`evidence`。详细规则见 `src/lib/content/schema.ts`。
+
+作品使用统一模板，详情页顶部依次显示：
+
+| 字段                                               | 含义                                              |
+| -------------------------------------------------- | ------------------------------------------------- |
+| `problem`                                          | 解决什么问题                                      |
+| `audience`                                         | 给谁用                                            |
+| `state`                                            | 当前状态                                          |
+| `results.users`、`results.revenue`、`results.asOf` | 真实结果：用户数、收入、数据截至日期；为 0 也要写 |
+| `reviews`                                          | 复盘文章的站内路径列表，如 `/essays/slug`         |
+
+草稿可以留空；`draft: false` 的作品缺少前四项中的任何一项，或 `reviews` 指向不存在的文章，`pnpm content:check` 会失败。`reviews` 指向尚未发布的文章时，正式站点不显示该篇；没有已发布的复盘时显示「复盘待写」。
+
+## 订阅入口
+
+首页、文章结尾和空的作品/文章列表页显示订阅入口。RSS 始终显示；邮件和公众号在 `site.json` 中配置，不接入任何服务：
+
+```json
+"subscribe": {
+  "email": "https://邮件服务的订阅页",
+  "wechat": { "name": "公众号名称", "qrcode": "/subscribe/wechat-qrcode.png" }
+}
+```
+
+二维码图片放在 `public/` 下，或填写完整的 HTTPS 地址。未配置的渠道在正式站点不显示，开发预览中显示占位框。
+
+关于页的「我的故事」写在 `src/app/about/page.tsx` 的 `story` 数组中，每个字符串一段；留空时正式站点不显示该节。
 
 开发预览显示草稿；可见页面每 3 秒刷新内容，页面隐藏后暂停，生产不启用此刷新。生产构建始终排除草稿，包括页面、RSS 和 Sitemap。确认文章可公开后再改为 `draft: false`。发布前运行 `pnpm check`；验证不通过会阻止构建。
 
@@ -82,6 +109,21 @@ Cloudflare Pages 可使用以下配置：
 
 首次上线前，填写真实网站配置和内容，确认正式域名、联系入口及分享图，并检查 `out/robots.txt`、`out/sitemap.xml` 和 `out/rss.xml`。部署完成后可接入 Search Console 和 Bing Webmaster Tools。
 
-正式站点在部署平台设置 `SITE_URL=https://george-wayne.pages.dev`，用于 canonical、RSS、Sitemap 和分享链接；此环境变量优先于内容库 `site.json` 的 URL。Cloudflare 仅连接代码仓库，私人内容尚未接入远端构建，当前部署不会包含草稿。
+### 站点地址与自定义域名
+
+canonical、分享图、RSS、Sitemap、robots 和结构化数据中的绝对地址都来自同一个站点地址，代码中不写死域名。优先级为：环境变量 `SITE_URL` > `site.json` 的 `url` > 示例地址 `https://example.com`。
+
+- 在 Cloudflare Pages 上构建（存在 `CF_PAGES`）时，`main` 分支没有配置站点地址会直接构建失败；预览分支未配置时使用本次部署的预览地址。
+- 其他环境的生产构建未配置时会打印警告并使用示例地址，CI 因此不受影响。
+- 当前正式站点在 Cloudflare 设置的是 `SITE_URL=https://<项目名>.pages.dev`。
+
+绑定自定义域名：
+
+1. 在 Cloudflare Pages 的 Custom domains 中添加域名，等待 DNS 和证书生效。
+2. 把生产环境变量 `SITE_URL` 改为 `https://你的域名`，重新部署。
+3. 检查线上首页的 canonical、`/rss.xml` 和 `/sitemap.xml` 是否已换成新域名。
+4. 为 `*.pages.dev` 设置到新域名的 301 跳转（Cloudflare Bulk Redirects），避免两个地址同时被收录。
+
+Cloudflare 仅连接代码仓库，私人内容尚未接入远端构建，当前部署不会包含草稿。
 
 原“笔记”已并入“文章”，短记录与长文统一保存在 `content/essays/`，按分类和标签区分。私人内容迁移时保留草稿状态；模板仅保留作品与文章两类。

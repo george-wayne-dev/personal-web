@@ -1,0 +1,113 @@
+.landscape-subscribe {
+  display: flex;
+  padding: 32px 36px;
+  border: 1px solid #46633d1c;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  background: #d4e4b9;
+}
+.landscape-site .landscape-subscribe :is(h2, h3) {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+.landscape-subscribe-copy p {
+  margin: 8px 0 0;
+  color: var(--land-muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.landscape-subscribe-channels {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 28px;
+}
+.landscape-subscribe-wechat {
+  display: grid;
+  margin: 0;
+  justify-items: center;
+  gap: 8px;
+}
+.landscape-subscribe-wechat img {
+  display: block;
+  width: 112px;
+  height: 112px;
+  border-radius: 6px;
+  background: #fff;
+}
+.landscape-subscribe-wechat figcaption {
+  color: var(--land-muted);
+  font-size: 11px;
+}
+.landscape-subscribe-links {
+  display: grid;
+  gap: 4px;
+}
+.landscape-subscribe-links a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  white-space: nowrap;
+}
+.landscape-subscribe-links a:hover {
+  color: #396c44;
+}
+.landscape-subscribe-placeholder {
+  display: grid;
+  place-content: center;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px dashed #52674f88;
+  border-radius: 6px;
+  color: var(--land-muted);
+  font-size: 11px;
+  text-align: center;
+}
+div.landscape-subscribe-placeholder {
+  width: 112px;
+  height: 112px;
+}
+.landscape-subscribe-placeholder code {
+  font: 10px/1.4 var(--font-mono);
+  opacity: 0.8;
+}
+.landscape-subscribe-section {
+  padding-block: 0 96px;
+  background: var(--land-paper);
+}
+.landscape-reader-body > .landscape-subscribe {
+  margin-top: 48px;
+}
+.landscape-index-empty + .landscape-subscribe {
+  margin-bottom: 72px;
+}
+
+@media (max-width: 620px) {
+  .landscape-subscribe {
+    padding: 24px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .landscape-site .landscape-subscribe :is(h2, h3) {
+    font-size: 20px;
+  }
+  .landscape-subscribe-copy p {
+    font-size: 13px;
+  }
+  .landscape-subscribe-section {
+    padding-block: 0 60px;
+  }
+  .landscape-index-empty + .landscape-subscribe {
+    margin-bottom: 50px;
+  }
+}

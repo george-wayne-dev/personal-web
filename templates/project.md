@@ -1,35 +1,40 @@
 ---
-title: 项目名称
-summary: 说明项目为谁解决了什么问题。
-date: "2026-10-19"
-category: 软件开发
+title: 产品名称
+summary: 一句话说明这个产品是什么。
+date: "2026-11-03"
+category: 产品
 tags:
-  - Next.js
+  - Build in Public
 draft: true
 featured: false
 locale: zh-CN
-kind: website
-role: 写明你实际负责的范围
+kind: web
 stack: Next.js / React
+# 以下字段在 draft: false 时必须填写，数字为 0 也要写。
+problem: 解决什么问题，一句话。
+audience: 给谁用，一句话。
 state: 开发中
+results:
+  users: 0
+  revenue: ¥0
+  asOf: "2026-11-03"
+# 复盘文章的站内路径，可以写多篇；未发布的文章不会显示。
+reviews:
+  - /essays/replace-with-review-slug
 ---
 
-## 问题与目标
+## 为什么做
 
-描述使用场景、用户以及需要改善的具体问题。
+需求从哪里来，为什么值得做。
 
-## 我的工作
+## 关键取舍
 
-说明个人贡献与团队分工。
+做了什么、没做什么，以及原因。
 
-## 实现与取舍
+## 真实结果
 
-记录关键方案、约束和选择原因。
+用户数、收入和反馈，说明统计口径；数字为 0 也照实写。
 
-## 成果与证据
+## 下一步
 
-放入可验证的演示、截图或公开源码，区分已经完成与尚未验证的部分。
-
-## 复盘
-
-记录问题、收获和下一步。
+接下来要验证什么。

@@ -17,6 +17,17 @@ const principles = [
   ["用可见结果校正判断", "让实际运行和使用反馈，检验原来的想法。"],
 ];
 
+// 「我的故事」由作者本人撰写，每个字符串是一段。留空时正式站点不显示这一节，
+// 开发预览显示下面的提纲作为占位。
+const story: string[] = [];
+const storyOutline = [
+  "9 年 Web 开发",
+  "33 岁",
+  "选择不上班",
+  "用一年验证一个人 + AI 能否做出赚钱的产品",
+];
+const showStoryPlaceholder = process.env.NODE_ENV === "development";
+
 export default function AboutPage() {
   return (
     <LandscapeShell site={siteConfig} current="/about">
@@ -24,8 +35,8 @@ export default function AboutPage() {
         <div className="landscape-reading-column">
           <h1>关于我</h1>
           <p>
-            我是一名软件开发者，做网站、移动应用与 AI
-            Agent，也把实践中的想法写下来。
+            我是 George，做了 9 年 Web 开发，现在一个人 + AI
+            做产品，并公开记录过程。
           </p>
         </div>
       </header>
@@ -34,6 +45,31 @@ export default function AboutPage() {
         <section className="landscape-about-intro" aria-label="个人介绍">
           <p>我关心一件事为什么值得做，以及它最后有没有真的被用起来。</p>
         </section>
+        {story.length || showStoryPlaceholder ? (
+          <section
+            className="landscape-about-section"
+            aria-labelledby="story-title"
+          >
+            <h2 id="story-title">我的故事</h2>
+            {story.length ? (
+              <div className="landscape-story">
+                {story.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            ) : (
+              <div className="landscape-story-placeholder">
+                <p>待撰写，填写前正式站点不显示这一节。提纲：</p>
+                <ul>
+                  {storyOutline.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+                <code>src/app/about/page.tsx → story</code>
+              </div>
+            )}
+          </section>
+        ) : null}
         <section
           className="landscape-about-section"
           aria-labelledby="principles-title"
@@ -54,9 +90,9 @@ export default function AboutPage() {
         >
           <h2 id="now-title">最近在做</h2>
           <ul className="landscape-now-list">
-            <li>维护个人内容网站和日常写作流程。</li>
-            <li>探索 Agent 的记忆、控制流与评估。</li>
-            <li>记录软件、产品与学习中反复出现的问题。</li>
+            <li>做第一个产品：数字对白（本网站）。</li>
+            <li>用一年验证一个人 + AI 能否做出赚钱的产品。</li>
+            <li>公开记录每个产品的需求、取舍和真实结果。</li>
           </ul>
         </section>
         <section

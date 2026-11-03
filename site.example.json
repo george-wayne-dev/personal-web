@@ -8,5 +8,12 @@
     "github": "",
     "x": "",
     "rss": "/rss.xml"
+  },
+  "subscribe": {
+    "email": "",
+    "wechat": {
+      "name": "",
+      "qrcode": ""
+    }
   }
 }

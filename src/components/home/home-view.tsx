@@ -10,6 +10,7 @@ import {
 } from "@/components/site/landscape-chrome";
 import { ProjectCard } from "@/components/content/project-card";
 import { ContactLinks } from "@/components/site/contact-links";
+import { SubscribeBlock } from "@/components/site/subscribe-block";
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true">{diagonal ? "↗" : "→"}</span>;
@@ -35,20 +36,26 @@ export function HomeView({ projects, essays, featured }: HomeViewProps) {
           <section className="landscape-hero" aria-labelledby="hero-title">
             <p className="landscape-hello">欢迎来到我的一小片天地</p>
             <h1 id="hero-title">
-              做点有用的东西，
+              一个人 + AI，
               <br />
-              写下沿途的想法。
+              从需求到上线做产品。
             </h1>
             <p className="landscape-intro">
-              关于软件、AI，还有生活里的观察与实践。
+              公开记录每个产品的需求、取舍和真实结果。
             </p>
             <div className="landscape-hero-actions">
               <a className="landscape-button" href="#projects">
                 看看作品 <Arrow />
               </a>
-              <a className="landscape-text-link" href="#essays">
-                读点文章 <Arrow />
-              </a>
+              {essays.length ? (
+                <a className="landscape-text-link" href="#essays">
+                  读点文章 <Arrow />
+                </a>
+              ) : (
+                <a className="landscape-text-link" href="#subscribe">
+                  订阅更新 <Arrow />
+                </a>
+              )}
             </div>
             <div className="landscape-hero-profile">
               <ContactLinks contacts={siteConfig.contacts} />
@@ -63,10 +70,12 @@ export function HomeView({ projects, essays, featured }: HomeViewProps) {
         >
           <div className="landscape-container">
             <div className="landscape-section-head">
-              <h2 id="projects-title">做过的东西</h2>
-              <Link className="landscape-text-link" href="/projects">
-                全部作品 <Arrow />
-              </Link>
+              <h2 id="projects-title">做过的产品</h2>
+              {selected.length ? (
+                <Link className="landscape-text-link" href="/projects">
+                  全部作品 <Arrow />
+                </Link>
+              ) : null}
             </div>
             {selected.length ? (
               <div className="landscape-project-grid">
@@ -85,27 +94,32 @@ export function HomeView({ projects, essays, featured }: HomeViewProps) {
                   unoptimized
                 />
                 <div>
-                  <h3>作品整理中</h3>
-                  <p>完成的作品，会陆续放在这里。</p>
+                  <h3>第一个产品正在做</h3>
+                  <p>
+                    就是你正在看的这个网站。它的需求、取舍和真实结果会公开在这里。
+                  </p>
+                  <a className="landscape-text-link" href="#subscribe">
+                    订阅更新 <Arrow />
+                  </a>
                 </div>
               </div>
             )}
           </div>
         </section>
 
-        <section
-          className="landscape-essays"
-          id="essays"
-          aria-labelledby="essays-title"
-        >
-          <div className="landscape-container landscape-essay-layout">
-            <div className="landscape-essay-heading">
-              <h2 id="essays-title">最近写下的</h2>
-              <Link className="landscape-text-link" href="/essays">
-                全部文章 <Arrow />
-              </Link>
-            </div>
-            {essays.length ? (
+        {essays.length ? (
+          <section
+            className="landscape-essays"
+            id="essays"
+            aria-labelledby="essays-title"
+          >
+            <div className="landscape-container landscape-essay-layout">
+              <div className="landscape-essay-heading">
+                <h2 id="essays-title">最近写下的</h2>
+                <Link className="landscape-text-link" href="/essays">
+                  全部文章 <Arrow />
+                </Link>
+              </div>
               <div className="landscape-essay-list">
                 {essays.slice(0, 4).map((item) => (
                   <article className="landscape-essay" key={item.slug}>
@@ -119,11 +133,21 @@ export function HomeView({ projects, essays, featured }: HomeViewProps) {
                   </article>
                 ))}
               </div>
-            ) : (
-              <p className="landscape-essay-empty">
-                文章正在整理，稍后再来看看。
-              </p>
-            )}
+            </div>
+          </section>
+        ) : null}
+
+        <section
+          className="landscape-subscribe-section"
+          id="subscribe"
+          aria-labelledby="subscribe-title"
+        >
+          <div className="landscape-container">
+            <SubscribeBlock
+              subscribe={siteConfig.subscribe}
+              rss={siteConfig.contacts.rss}
+              headingId="subscribe-title"
+            />
           </div>
         </section>
       </main>

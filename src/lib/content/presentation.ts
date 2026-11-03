@@ -9,14 +9,14 @@ export const collectionMeta: Record<
     eyebrow: "Selected work / 01",
     title: "把判断做成可以检查的东西。",
     description:
-      "这里记录我正在构建的工具、实验和长期项目，也保留它们尚未解决的问题。",
+      "一个人 + AI 做出的产品：解决什么问题、给谁用、现在什么状态、真实结果如何。",
   },
   essays: {
     label: "文章",
     eyebrow: "Long-form / 02",
     title: "长一点写清楚，慢一点形成判断。",
     description:
-      "围绕 AI、工程、产品与学习方法的长文。按时间归档，不追逐更新频率。",
+      "每个产品的需求、取舍和复盘，以及和 AI 一起做产品的方法。按时间归档。",
   },
 };
 

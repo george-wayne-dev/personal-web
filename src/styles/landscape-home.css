@@ -449,11 +449,6 @@
 .landscape-essay > a:hover h3 {
   color: #48805b;
 }
-.landscape-essay-empty {
-  margin: 10px 0;
-  color: var(--land-muted);
-  font-size: 15px;
-}
 
 .landscape-footer {
   position: relative;
@@ -684,10 +679,6 @@
   }
   .landscape-essay h3 {
     font-size: 18px;
-  }
-  .landscape-essay-empty {
-    margin: 0;
-    font-size: 13px;
   }
   .landscape-footer-copy {
     padding-top: 38px;

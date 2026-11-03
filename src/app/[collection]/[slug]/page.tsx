@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EvidenceTabs } from "@/components/projects/evidence-tabs";
@@ -19,9 +20,12 @@ import {
   displayCategory,
   displayDate,
 } from "@/lib/content/presentation";
+import type { ContentDocument } from "@/lib/content/schema";
 import { siteConfig } from "@/lib/site";
+import { SubscribeBlock } from "@/components/site/subscribe-block";
 
 type PageProps = { params: Promise<{ collection: string; slug: string }> };
+type ProjectResults = NonNullable<ContentDocument["results"]>;
 type StaticParamsOptions = { params: { collection: string } };
 export const dynamicParams = false;
 
@@ -61,6 +65,18 @@ export async function generateMetadata({
     : { title: "未找到内容" };
 }
 
+function formatResults(results?: ProjectResults) {
+  if (!results) return "";
+  const filled = (value: string | number) => String(value).trim() !== "";
+  return [
+    filled(results.users) ? `用户 ${results.users}` : "",
+    filled(results.revenue) ? `收入 ${results.revenue}` : "",
+    results.asOf ? `截至 ${displayDate(results.asOf)}` : "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
+}
+
 export default async function ContentPage({ params }: PageProps) {
   const { collection, slug } = await params;
   if (!isContentCollection(collection) || slug === "__placeholder__")
@@ -73,7 +89,8 @@ export default async function ContentPage({ params }: PageProps) {
   const newer = index > 0 ? siblings[index - 1] : undefined;
   const older = index < siblings.length - 1 ? siblings[index + 1] : undefined;
   const meta = collectionMeta[collection];
-  const related = getContent()
+  const content = getContent();
+  const related = content
     .filter(
       (item) =>
         contentUrl(item) !== contentUrl(document) &&
@@ -96,13 +113,43 @@ export default async function ContentPage({ params }: PageProps) {
       : {}),
   };
 
-  const facts =
+  // Unpublished reviews are absent from production content and simply not listed.
+  const reviews = (document.reviews ?? []).flatMap((href) => {
+    const review = content.find((item) => contentUrl(item) === href);
+    return review ? [review] : [];
+  });
+  // Published projects always pass content:check; drafts show what is still missing.
+  const pending = document.draft ? "待填写" : undefined;
+  const facts: Array<{ label: string; value: ReactNode; wide?: boolean }> =
     collection === "projects"
       ? [
-          ["我的角色", document.role],
-          ["使用工具", document.stack],
-          ["当前阶段", document.state ?? document.status],
-        ].filter(([, value]) => value)
+          {
+            label: "解决什么问题",
+            value: document.problem || pending,
+            wide: true,
+          },
+          { label: "给谁用", value: document.audience || pending, wide: true },
+          {
+            label: "当前状态",
+            value: document.state || document.status || pending,
+          },
+          {
+            label: "真实结果",
+            value: formatResults(document.results) || pending,
+          },
+          {
+            label: "复盘文章",
+            value: reviews.length
+              ? reviews.map((review) => (
+                  <Link href={contentUrl(review)} key={contentUrl(review)}>
+                    {review.title}
+                  </Link>
+                ))
+              : "复盘待写",
+          },
+          { label: "我的角色", value: document.role },
+          { label: "使用工具", value: document.stack },
+        ].filter(({ value }) => value)
       : [];
 
   return (
@@ -152,8 +199,11 @@ export default async function ContentPage({ params }: PageProps) {
             ) : null}
             {facts.length ? (
               <dl className="landscape-project-facts">
-                {facts.map(([label, value]) => (
-                  <div key={label}>
+                {facts.map(({ label, value, wide }) => (
+                  <div
+                    className={wide ? "landscape-fact-wide" : undefined}
+                    key={label}
+                  >
                     <dt>{label}</dt>
                     <dd>{value}</dd>
                   </div>
@@ -194,6 +244,12 @@ export default async function ContentPage({ params }: PageProps) {
                 </p>
               ) : null}
             </div>
+            {collection === "essays" ? (
+              <SubscribeBlock
+                subscribe={siteConfig.subscribe}
+                rss={siteConfig.contacts.rss}
+              />
+            ) : null}
             {related.length ? (
               <section
                 className="landscape-related"

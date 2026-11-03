@@ -7,11 +7,14 @@ import remarkGfm from "remark-gfm";
 import {
   collections,
   contentFrontmatterSchema,
+  missingProjectFields,
 } from "../src/lib/content/schema.ts";
 
 const require = createRequire(import.meta.url);
 const nextRequire = createRequire(require.resolve("next/package.json"));
 nextRequire("@next/env").loadEnvConfig(process.cwd());
+// Imported after the env is loaded; on Cloudflare a missing site URL fails here.
+const { siteUrlIsFallback } = await import("../src/lib/site.ts");
 
 const root = path.resolve(process.env.CONTENT_ROOT ?? "content");
 const publicRoot = path.resolve("public");
@@ -63,7 +66,7 @@ for (const collection of collections) {
           (_, index) => `section-${String(index + 1).padStart(2, "0")}`,
         ),
       );
-      documents.push({ ...data, file, url, tree, anchors });
+      documents.push({ ...data, collection, file, url, tree, anchors });
       if (!data.draft) routes.add(url);
     } catch (error) {
       failures.push(`${file}: ${error.message}`);
@@ -133,12 +136,27 @@ for (const document of documents.filter((item) => !item.draft)) {
     )
       failures.push(`${document.file}: 媒体嵌入需要 HTTPS 链接`);
   });
+  if (document.collection === "projects") {
+    const missing = missingProjectFields(document);
+    if (missing.length)
+      failures.push(
+        `${document.file}: 公开作品必须填写 ${missing.join("、")}（数字为 0 也要写）`,
+      );
+    for (const review of document.reviews ?? []) {
+      if (!documents.some((item) => item.url === review))
+        failures.push(`${document.file}: 复盘文章不存在 ${review}`);
+    }
+  }
 }
+if (siteUrlIsFallback)
+  console.warn(
+    "未设置 SITE_URL，canonical、RSS 和 Sitemap 暂用 https://example.com；正式发布前请配置。",
+  );
 if (failures.length) {
   console.error(failures.join("\n"));
   process.exitCode = 1;
 } else {
   console.log(
-    `内容检查通过：${documents.filter((item) => !item.draft).length} 篇公开内容，${documents.filter((item) => item.draft).length} 篇草稿。已检查元信息、重复地址、内部链接、章节锚点与本地资源。`,
+    `内容检查通过：${documents.filter((item) => !item.draft).length} 篇公开内容，${documents.filter((item) => item.draft).length} 篇草稿。已检查元信息、作品必填字段、重复地址、内部链接、章节锚点与本地资源。`,
   );
 }

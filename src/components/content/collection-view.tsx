@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import type { ContentCollection, ContentPreview } from "@/lib/content/schema";
 import { contentUrl } from "@/lib/content/urls";
 import { collectionMeta } from "@/lib/content/presentation";
@@ -15,9 +15,12 @@ const empty: CollectionFilters = { kind: "", category: "", tag: "", year: "" };
 export function CollectionView({
   collection,
   items,
+  subscribe,
 }: {
   collection: ContentCollection;
   items: ContentPreview[];
+  /** Server-rendered subscribe block, shown while the collection is empty. */
+  subscribe?: ReactNode;
 }) {
   const [filters, setFilters] = useState<CollectionFilters>(empty);
   useEffect(() => {
@@ -61,6 +64,18 @@ export function CollectionView({
   const entries = filtering
     ? filteredItems
     : filteredItems.filter((item) => item.slug !== featured?.slug);
+  // A lone featured entry already fills the hero; skip an empty "more" section.
+  const showIndex = filtering || entries.length > 0 || !items.length;
+  const emptyCopy =
+    collection === "projects"
+      ? {
+          title: "第一个产品正在做",
+          text: "就是你正在看的这个网站。它的需求、取舍和真实结果会公开在这里。",
+        }
+      : {
+          title: "第一批复盘正在写",
+          text: "文章发布后会出现在这里。想在发布时收到，可以订阅。",
+        };
 
   return (
     <>
@@ -70,8 +85,8 @@ export function CollectionView({
             <h1>{meta.label}</h1>
             <p>
               {collection === "projects"
-                ? "做过的工具、实验，以及还在生长的想法。"
-                : "关于软件、AI 与日常实践的记录。"}
+                ? "每个产品解决什么问题、给谁用、结果如何。"
+                : "产品复盘，以及和 AI 一起做产品的方法。"}
             </p>
           </div>
           {featured && !filtering ? (
@@ -89,67 +104,66 @@ export function CollectionView({
         </div>
       </header>
       <RailcodeHorizon />
-      <section
-        className="landscape-container landscape-journal-wrap landscape-index"
-        aria-label={`${meta.label}列表`}
-      >
-        <div className="landscape-index-heading">
-          <h2>
-            {filtering
-              ? "筛选结果"
-              : featured
-                ? collection === "projects"
-                  ? "更多作品"
-                  : "更多文章"
-                : meta.label}
-          </h2>
-        </div>
-        {items.length ? (
-          <CollectionFilterControls
-            collection={collection}
-            items={items}
-            filteredItems={filtering ? filteredItems : entries}
-            filters={filters}
-            onFilterChange={(key, value) =>
-              update({ ...filters, [key]: value })
-            }
-            onReset={() => update(empty)}
-          />
-        ) : null}
-        {!entries.length ? (
-          <div className="landscape-index-empty" role="status">
-            <h3>
+      {showIndex ? (
+        <section
+          className="landscape-container landscape-journal-wrap landscape-index"
+          aria-label={`${meta.label}列表`}
+        >
+          <div className="landscape-index-heading">
+            <h2>
               {filtering
-                ? "没有找到对应的内容"
+                ? "筛选结果"
                 : featured
-                  ? "更多内容，陆续更新"
-                  : `${meta.label}整理中`}
-            </h3>
-            <p>
-              {filtering
-                ? "试试其他条件，或清除筛选查看全部。"
-                : "新的记录会陆续放在这里。"}
-            </p>
+                  ? collection === "projects"
+                    ? "更多作品"
+                    : "更多文章"
+                  : meta.label}
+            </h2>
           </div>
-        ) : (
-          <div className="landscape-editorial-list">
-            {entries.map((item) => (
-              <article className="landscape-editorial-entry" key={item.slug}>
-                <Link href={contentUrl(item)}>
-                  <ContentMeta item={item} />
-                  <div className="landscape-entry-copy">
-                    <h3>
-                      {item.title}
-                      <span aria-hidden="true"> ↗</span>
-                    </h3>
-                    <p>{item.summary}</p>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
-        )}
-      </section>
+          {items.length ? (
+            <CollectionFilterControls
+              collection={collection}
+              items={items}
+              filteredItems={filtering ? filteredItems : entries}
+              filters={filters}
+              onFilterChange={(key, value) =>
+                update({ ...filters, [key]: value })
+              }
+              onReset={() => update(empty)}
+            />
+          ) : null}
+          {!entries.length ? (
+            <>
+              <div className="landscape-index-empty" role="status">
+                <h3>{filtering ? "没有找到对应的内容" : emptyCopy.title}</h3>
+                <p>
+                  {filtering
+                    ? "试试其他条件，或清除筛选查看全部。"
+                    : emptyCopy.text}
+                </p>
+              </div>
+              {items.length ? null : subscribe}
+            </>
+          ) : (
+            <div className="landscape-editorial-list">
+              {entries.map((item) => (
+                <article className="landscape-editorial-entry" key={item.slug}>
+                  <Link href={contentUrl(item)}>
+                    <ContentMeta item={item} />
+                    <div className="landscape-entry-copy">
+                      <h3>
+                        {item.title}
+                        <span aria-hidden="true"> ↗</span>
+                      </h3>
+                      <p>{item.summary}</p>
+                    </div>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      ) : null}
     </>
   );
 }

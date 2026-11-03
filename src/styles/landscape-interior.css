@@ -382,6 +382,17 @@
   color: #637358;
   font-size: 11px;
 }
+.landscape-project-facts > .landscape-fact-wide {
+  grid-column: 1 / -1;
+}
+.landscape-project-facts dd a {
+  display: block;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.landscape-project-facts dd a:hover {
+  color: #396c44;
+}
 .landscape-project-facts dd {
   margin: 9px 0 0;
   font-size: 13px;
@@ -658,6 +669,34 @@
   color: var(--land-muted);
   font-size: 15px;
   line-height: 2.4;
+}
+.landscape-story p {
+  margin: 0;
+  color: #303c2c;
+  font-size: 16px;
+  line-height: 1.95;
+}
+.landscape-story p + p {
+  margin-top: 16px;
+}
+.landscape-story-placeholder {
+  padding: 18px 20px;
+  border: 1px dashed #52674f88;
+  border-radius: 8px;
+  color: var(--land-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+.landscape-story-placeholder :is(p, ul) {
+  margin: 0;
+}
+.landscape-story-placeholder ul {
+  padding-left: 1.1em;
+}
+.landscape-story-placeholder code {
+  display: block;
+  margin-top: 8px;
+  font: 11px/1.6 var(--font-mono);
 }
 .landscape-contact-links {
   display: flex;
