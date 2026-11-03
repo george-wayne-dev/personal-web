@@ -15,9 +15,10 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-打开 <http://localhost:3000>。仓库不包含作者的私有文章，未配置内容时会显示空状态。
+打开 <http://localhost:3000>。仓库的 `content/` 只有已发布的内容，草稿留在私有内容库；没有内容时显示空状态。
 
 ```bash
+pnpm content:sync  # 把私有内容库中已发布的内容同步到 content/
 pnpm content:check # 内容结构、内部链接和资源检查
 pnpm lint          # 代码规范
 pnpm typecheck     # 类型检查
@@ -39,9 +40,9 @@ SITE_CONFIG_PATH=/absolute/path/to/personal-content/site.json
 
 这些是路径示例，不包含任何真实凭据。未配置 `CONTENT_ROOT` 时读取本仓库 `content/`。配置内容目录后，默认也会尝试读取其父目录的 `site.json`；`SITE_CONFIG_PATH` 可显式指定配置位置。`.env.local` 不应提交。
 
-当前作者公开的位置、GitHub、X 和邮箱同时保存在 `src/lib/site.ts` 的默认配置中，远端未接入私人内容库时也能展示。指定 `site.json` 后使用该文件中的配置；`contacts.x` 可选，填写完整主页 URL。首页、关于页和页脚共用这些联系方式，RSS 保留在关于页、页脚和订阅入口。
+当前作者公开的位置、GitHub、X 和邮箱同时保存在 `src/lib/site.ts` 的默认配置中，线上构建不读取 `site.json`，使用的就是这份默认配置。指定 `site.json` 后使用该文件中的配置；`contacts.x` 可选，填写完整主页 URL。首页、关于页和页脚共用这些联系方式，RSS 保留在关于页、页脚和订阅入口。
 
-代码仓库和内容仓库可以分开管理。公开仓库仅保存代码和模板，私有内容应放在另一个私有仓库；生产构建环境必须能够访问内容文件。仅连接代码仓库不会自动获得另一私有仓库中的内容。
+写作和草稿都在私有内容库（Obsidian 库 `personal-content`，私有仓库 `george-wayne-dev/personal-content`）。本仓库的 `content/` 只保存已发布内容的副本，由 `pnpm content:sync` 生成，不要直接修改，下次同步会覆盖。发布步骤见「GitHub 与发布」。
 
 ## 写作
 
@@ -82,7 +83,7 @@ content/
 
 关于页的「我的故事」写在 `src/app/about/page.tsx` 的 `story` 数组中，每个字符串一段；留空时正式站点不显示该节。
 
-开发预览显示草稿；可见页面每 3 秒刷新内容，页面隐藏后暂停，生产不启用此刷新。生产构建始终排除草稿，包括页面、RSS 和 Sitemap。确认文章可公开后再改为 `draft: false`。发布前运行 `pnpm check`；验证不通过会阻止构建。
+开发预览显示草稿；可见页面每 3 秒刷新内容，页面隐藏后暂停，生产不启用此刷新。生产构建始终排除草稿，包括页面、RSS 和 Sitemap。确认文章可公开后再改为 `draft: false`，然后按「发布一篇内容」同步上线；验证不通过会阻止同步和构建。
 
 图片放到 `public/`，在 Markdown 中使用 `/images/example.webp` 等站内路径，并填写替代文本。外部音视频使用独立段落中的链接：
 
@@ -96,16 +97,40 @@ content/
 
 ## GitHub 与发布
 
-GitHub Actions 在推送 `main` 和提交 Pull Request 时安装锁定依赖并执行 `pnpm check`，成功后保留静态产物 7 天。CI 默认构建仓库内的公开内容，不读取本机 `.env.local` 或私有内容目录。
+GitHub Actions 在推送 `main` 和提交 Pull Request 时安装锁定依赖并执行 `pnpm check`，成功后保留静态产物 7 天。CI 构建仓库 `content/` 中已同步的公开内容，不读取本机 `.env.local` 或私有内容目录。
 
-Cloudflare Pages 可使用以下配置：
+Cloudflare Pages 连接本仓库，使用以下配置：
 
 - 构建命令：`pnpm build`
 - 输出目录：`out`
 - 生产分支：`main`
-- 环境变量：`NODE_VERSION=24.21.0`、`PNPM_VERSION=12.9.1`
+- 环境变量：`NODE_VERSION=24.21.0`、`PNPM_VERSION=12.9.1`、`SITE_URL`
 
-当前工程本身即仓库根目录，无需另设构建根目录。使用私有内容时，需要另行配置受限的构建访问权限和内容检出步骤，或从本地已验证的 `out/` 上传；不要把仓库令牌写进源码。代码推送到 GitHub 与生产部署是两个独立步骤。
+当前工程本身即仓库根目录，无需另设构建根目录。线上构建只读取本仓库的 `content/`，不访问私有内容库，因此不需要任何仓库令牌。GitHub Actions 只做检查，不负责部署。
+
+### 发布一篇内容
+
+1. 在私有内容库写完，把 `draft` 改为 `false`。作品还要填好 `problem`、`audience`、`state` 和 `results`。
+2. 在本仓库运行 `pnpm content:sync`。脚本读取 `.env.local` 的 `CONTENT_ROOT`，先检查整个私有内容库，再把所有 `draft: false` 的作品和文章复制到 `content/`，删除已不再公开的文件，最后检查同步结果。任何一步检查失败都会停止，并说明原因。
+3. 用 `git status content` 查看变化。需要预览时运行 `pnpm build && pnpm start`；本地构建读取私有内容库，同样排除草稿，公开内容与线上一致。
+4. 在 `main` 分支提交并推送 `content/`：
+
+   ```bash
+   git add content
+   git commit -m "Publish 文章标题"
+   git push
+   ```
+
+   Cloudflare Pages 构建 `main` 后上线，GitHub Actions 同时用这份内容运行 `pnpm check`。
+
+下线或修改也走同一流程：在私有内容库把 `draft` 改回 `true`、删除文件或修改正文，再同步、提交、推送。下线的文件会从 `content/` 删除，但仍留在公开仓库的 Git 历史里。
+
+同步的几条规则：
+
+- 以私有内容库为准。直接修改 `content/` 会在下次同步时被覆盖。
+- 作品的 `reviews` 指向未发布的文章时，同步时会去掉这些链接，线上本来也不显示它们。文章发布后再同步，链接会恢复。去掉链接时会重写该作品的 Frontmatter，注释不保留，日期仍带引号。
+- 只同步 Markdown。正文图片使用图床的完整 URL，或放进本仓库的 `public/` 并一起提交。
+- `site.json` 不同步。订阅渠道、联系方式要在线上生效，需要同时修改 `src/lib/site.ts` 的默认配置。
 
 首次上线前，填写真实网站配置和内容，确认正式域名、联系入口及分享图，并检查 `out/robots.txt`、`out/sitemap.xml` 和 `out/rss.xml`。部署完成后可接入 Search Console 和 Bing Webmaster Tools。
 
@@ -123,7 +148,5 @@ canonical、分享图、RSS、Sitemap、robots 和结构化数据中的绝对地
 2. 把生产环境变量 `SITE_URL` 改为 `https://你的域名`，重新部署。
 3. 检查线上首页的 canonical、`/rss.xml` 和 `/sitemap.xml` 是否已换成新域名。
 4. 为 `*.pages.dev` 设置到新域名的 301 跳转（Cloudflare Bulk Redirects），避免两个地址同时被收录。
-
-Cloudflare 仅连接代码仓库，私人内容尚未接入远端构建，当前部署不会包含草稿。
 
 原“笔记”已并入“文章”，短记录与长文统一保存在 `content/essays/`，按分类和标签区分。私人内容迁移时保留草稿状态；模板仅保留作品与文章两类。

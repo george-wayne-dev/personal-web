@@ -8,11 +8,12 @@
     "start": "node scripts/preview.mjs",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write src content package.json next.config.ts eslint.config.mjs postcss.config.mjs README.md",
-    "format:check": "prettier --check src content package.json next.config.ts eslint.config.mjs postcss.config.mjs README.md",
+    "format": "prettier --write src package.json next.config.ts eslint.config.mjs postcss.config.mjs README.md",
+    "format:check": "prettier --check src package.json next.config.ts eslint.config.mjs postcss.config.mjs README.md",
     "check": "pnpm lint && pnpm typecheck && pnpm build",
     "preview": "node scripts/preview.mjs",
-    "content:check": "node scripts/check-content.mjs"
+    "content:check": "node scripts/check-content.mjs",
+    "content:sync": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/sync-content.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",
