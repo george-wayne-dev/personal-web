@@ -2,7 +2,7 @@
 
 基于 Next.js App Router、React 和本地 Markdown 的个人网站，包含作品、文章和关于页。支持分类、标签、年度筛选、相关内容、RSS、站点地图和结构化数据。首页、作品、文章、详情和关于页共用响应式布局及导航。
 
-首页的白云、游乐场、树林和泥土使用从 [Railcode](https://railcode.dev/) 提取的原始 Canvas 绘制逻辑；作品配图使用原站的四张像素插画。源地址和图片校验值记录在 `public/railcode/SOURCES.md`。场景可暂停，并跟随系统“减少动态效果”设置。首页组件位于 `src/components/home/`，共用页头、页尾位于 `src/components/site/`，场景绘制位于 `src/lib/railcode/`。样式按基础、首页、内页分在 `src/styles/landscape-*.css`；列表筛选可展开，正文目录在桌面与手机端共用同一组锚点。
+首页长卷、内页分隔带、页脚和作品配图都是原创的「数字山水」：`src/lib/scene/ridges.ts` 用种子生成细线山脊，同一处每次看到的山都一样，每个作品也有自己的一座山；页脚不放山，是 `src/lib/scene/trees.ts` 画的树和地。首页长卷里，一个人提着一盏代表 AI 的灯笼，沿山脊依次走过「需求」「取舍」「上线」「结果」；动画可暂停，跟随系统“减少动态效果”设置，滚出屏幕后停止绘制。首页组件位于 `src/components/home/`，共用页头、页尾和场景组件位于 `src/components/site/`。样式按基础、首页、内页分在 `src/styles/landscape-*.css`；列表筛选可展开，正文目录在桌面与手机端共用同一组锚点。
 
 ## 本地运行
 

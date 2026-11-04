@@ -7,18 +7,13 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react";
-import { createPark, drawCloud } from "@/lib/railcode/park";
+import {
+  createWalkScene,
+  WALK_START_TIME,
+  WALK_STILL_TIME,
+} from "@/lib/scene/ridges";
 
-const clouds = [
-  ["k1", "bank"],
-  ["k2", "puff"],
-  ["k3", "wisp"],
-  ["k4", "drift"],
-  ["k5", "wisp"],
-  ["k6", "puff"],
-  ["k7", "puff"],
-  ["k8", "drift"],
-] as const;
+const FRAME_SECONDS = 1 / 30;
 
 function subscribeMotion(callback: () => void) {
   const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -34,64 +29,65 @@ function serverReducedMotion() {
   return true;
 }
 
-function RailcodeCloud({
-  lane,
-  shape,
-}: {
-  lane: string;
-  shape: (typeof clouds)[number][1];
-}) {
-  const ref = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    if (ref.current) drawCloud(ref.current, shape);
-  }, [shape]);
-  return <canvas ref={ref} className={`railcode-cloud ${lane}`} />;
-}
-
-function RailcodePark({ paused }: { paused: boolean }) {
+function RidgeWalk({ paused, still }: { paused: boolean; still: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const engineRef = useRef<ReturnType<typeof createPark> | null>(null);
-  const elapsedRef = useRef(0.9);
+  const sceneRef = useRef<ReturnType<typeof createWalkScene> | null>(null);
+  const elapsedRef = useRef(WALK_START_TIME);
+  const stillRef = useRef(still);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const engine = createPark(canvas);
-    engineRef.current = engine;
+    const scene = createWalkScene(canvas);
+    sceneRef.current = scene;
     const resize = () => {
-      if (engine.layout()) engine.draw(elapsedRef.current, 0);
+      if (!scene.layout()) return;
+      scene.draw(stillRef.current ? WALK_STILL_TIME : elapsedRef.current);
     };
     resize();
     const observer = new ResizeObserver(resize);
     observer.observe(canvas);
     return () => {
       observer.disconnect();
-      engineRef.current = null;
+      sceneRef.current = null;
     };
   }, []);
 
   useEffect(() => {
-    if (paused) return;
+    stillRef.current = still;
+    sceneRef.current?.draw(still ? WALK_STILL_TIME : elapsedRef.current);
+  }, [still]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (paused || still || !canvas) return;
     let frame = 0;
     let previous = performance.now();
+    let waiting = 0;
+    let onScreen = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+    });
+    observer.observe(canvas);
     const draw = (now: number) => {
       const delta = Math.min(0.05, Math.max(0, (now - previous) / 1000));
       previous = now;
-      if (document.visibilityState === "visible") {
-        elapsedRef.current += delta;
-        engineRef.current?.draw(elapsedRef.current, delta);
+      waiting += delta;
+      if (onScreen && waiting >= FRAME_SECONDS) {
+        elapsedRef.current += waiting;
+        waiting = 0;
+        sceneRef.current?.draw(elapsedRef.current);
       }
       frame = requestAnimationFrame(draw);
     };
     frame = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(frame);
-  }, [paused]);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [paused, still]);
 
-  return (
-    <div className="park-landscape" aria-hidden="true">
-      <canvas ref={canvasRef} />
-    </div>
-  );
+  return <canvas className="ridge-walk" ref={canvasRef} aria-hidden="true" />;
 }
 
 export function AnimatedSky({ children }: { children: ReactNode }) {
@@ -103,14 +99,9 @@ export function AnimatedSky({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div className="landscape-sky" data-paused={paused}>
-      <div className="railcode-sky-clouds" aria-hidden="true">
-        {clouds.map(([lane, shape]) => (
-          <RailcodeCloud lane={lane} shape={shape} key={lane} />
-        ))}
-      </div>
+    <div className="landscape-sky">
       {children}
-      <RailcodePark paused={paused || reduced} />
+      <RidgeWalk paused={paused} still={reduced} />
       <button
         type="button"
         className="landscape-motion-toggle"

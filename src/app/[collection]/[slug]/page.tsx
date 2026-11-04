@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { EvidenceTabs } from "@/components/projects/evidence-tabs";
 import Image from "next/image";
 import { LandscapeShell } from "@/components/site/landscape-chrome";
-import { RailcodeHorizon } from "@/components/site/railcode-horizon";
+import { RidgeScene } from "@/components/site/ridge-scene";
 import { ArticleToc } from "@/components/content/article-toc";
 import {
   contentUrl,
@@ -187,7 +187,11 @@ export default async function ContentPage({ params }: PageProps) {
             </div>
           </div>
         </header>
-        <RailcodeHorizon />
+        <RidgeScene
+          variant="band"
+          seed={contentUrl(document)}
+          className="landscape-horizon"
+        />
         <div className="landscape-reading-layout">
           {headings.length ? <ArticleToc headings={headings} /> : null}
           <div className="landscape-reader-body">

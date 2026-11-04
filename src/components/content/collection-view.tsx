@@ -8,7 +8,7 @@ import { collectionMeta } from "@/lib/content/presentation";
 import type { CollectionFilters } from "./collection-view.types";
 import { CollectionFilterControls } from "./collection-filters";
 import { ContentMeta } from "./content-meta";
-import { RailcodeHorizon } from "@/components/site/railcode-horizon";
+import { RidgeScene } from "@/components/site/ridge-scene";
 
 const empty: CollectionFilters = { kind: "", category: "", tag: "", year: "" };
 
@@ -103,7 +103,11 @@ export function CollectionView({
           ) : null}
         </div>
       </header>
-      <RailcodeHorizon />
+      <RidgeScene
+        variant="band"
+        seed={collection}
+        className="landscape-horizon"
+      />
       {showIndex ? (
         <section
           className="landscape-container landscape-journal-wrap landscape-index"

@@ -4,8 +4,8 @@
   left: 8px;
   z-index: 200;
   padding: 12px 18px;
-  color: #221812;
-  background: #fff9de;
+  color: var(--land-ink);
+  background: var(--land-surface);
   transform: translateY(-160%);
 }
 .skip-link:focus {
@@ -15,7 +15,7 @@
   scroll-margin-top: 32px;
 }
 .landscape-site :is(summary, select, a, button):focus-visible {
-  outline: 3px solid #2c6d8a;
+  outline: 3px solid var(--land-ai);
   outline-offset: 4px;
 }
 @media (prefers-reduced-motion: reduce) {

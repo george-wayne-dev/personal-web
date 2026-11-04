@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LandscapeShell } from "@/components/site/landscape-chrome";
 import { siteConfig } from "@/lib/site";
-import { RailcodeHorizon } from "@/components/site/railcode-horizon";
+import { RidgeScene } from "@/components/site/ridge-scene";
 import { ContactLinks } from "@/components/site/contact-links";
 
 export const metadata: Metadata = {
@@ -40,7 +40,7 @@ export default function AboutPage() {
           </p>
         </div>
       </header>
-      <RailcodeHorizon />
+      <RidgeScene variant="band" seed="about" className="landscape-horizon" />
       <div className="landscape-reading-column landscape-about">
         <section className="landscape-about-intro" aria-label="个人介绍">
           <p>我关心一件事为什么值得做，以及它最后有没有真的被用起来。</p>

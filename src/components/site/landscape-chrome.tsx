@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { RailcodeForest } from "./railcode-forest";
+import { RidgeScene } from "./ridge-scene";
 import { SiteLogo } from "./site-logo";
 import { ContactLinks, type SiteContacts } from "./contact-links";
 
@@ -44,7 +44,11 @@ export function LandscapeHeader({
 export function LandscapeFooter({ site }: { site: LandscapeSiteConfig }) {
   return (
     <footer className="landscape-footer">
-      <RailcodeForest />
+      <RidgeScene
+        variant="footer"
+        seed="footer"
+        className="landscape-footer-scene"
+      />
       <div className="landscape-footer-copy">
         <Link className="landscape-footer-name" href="/about">
           {site.name} <span aria-hidden="true">↗</span>

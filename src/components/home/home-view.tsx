@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { HomeViewProps } from "@/components/home-view.types";
 import { contentUrl } from "@/lib/content";
@@ -10,6 +9,7 @@ import {
 } from "@/components/site/landscape-chrome";
 import { ProjectCard } from "@/components/content/project-card";
 import { ContactLinks } from "@/components/site/contact-links";
+import { RidgeScene } from "@/components/site/ridge-scene";
 import { SubscribeBlock } from "@/components/site/subscribe-block";
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
@@ -81,19 +81,16 @@ export function HomeView({ projects, essays, featured }: HomeViewProps) {
             </div>
             {selected.length ? (
               <div className="landscape-project-grid">
-                {selected.map((item, index) => (
-                  <ProjectCard item={item} index={index} key={item.slug} />
+                {selected.map((item) => (
+                  <ProjectCard item={item} key={item.slug} />
                 ))}
               </div>
             ) : (
               <div className="landscape-project-empty">
-                <Image
-                  className="railcode-original-art"
-                  src="/railcode/human-and-robot.png"
-                  alt=""
-                  width={168}
-                  height={120}
-                  unoptimized
+                <RidgeScene
+                  variant="vignette"
+                  seed="digital-dialogue"
+                  className="landscape-project-empty-art"
                 />
                 <div>
                   <h3>第一个产品正在做</h3>

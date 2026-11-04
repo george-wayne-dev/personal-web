@@ -2,21 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ContentPreview } from "@/lib/content/schema";
 import { contentUrl } from "@/lib/content/urls";
-
-const projectArt = [
-  "building-bricks",
-  "connect-four",
-  "toy-train",
-  "human-and-robot",
-];
+import { RidgeScene } from "@/components/site/ridge-scene";
 
 export function ProjectCard({
   item,
-  index,
   heading = "h3",
 }: {
   item: ContentPreview;
-  index: number;
   heading?: "h2" | "h3";
 }) {
   const Heading = heading;
@@ -34,14 +26,7 @@ export function ProjectCard({
               unoptimized
             />
           ) : (
-            <Image
-              className="railcode-original-art"
-              src={`/railcode/${projectArt[index % projectArt.length]}.png`}
-              alt=""
-              width={168}
-              height={120}
-              unoptimized
-            />
+            <RidgeScene variant="card" seed={contentUrl(item)} />
           )}
           <span className="landscape-project-open" aria-hidden="true">
             ↗
