@@ -684,25 +684,6 @@
 .landscape-story p + p {
   margin-top: 16px;
 }
-.landscape-story-placeholder {
-  padding: 18px 20px;
-  border: 1px dashed #17211e66;
-  border-radius: 8px;
-  color: var(--land-muted);
-  font-size: 14px;
-  line-height: 1.9;
-}
-.landscape-story-placeholder :is(p, ul) {
-  margin: 0;
-}
-.landscape-story-placeholder ul {
-  padding-left: 1.1em;
-}
-.landscape-story-placeholder code {
-  display: block;
-  margin-top: 8px;
-  font: 11px/1.6 var(--font-mono);
-}
 .landscape-contact-links {
   display: flex;
   flex-wrap: wrap;
