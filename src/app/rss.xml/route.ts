@@ -18,12 +18,13 @@ function escapeXml(value: string) {
 }
 
 export function GET() {
+  // guid 不含域名：换域名后，阅读器不会把旧文章当成新文章再推一遍。
   const items = getContent({ includeDrafts: false })
     .map(
       (document) => `<item>
   <title>${escapeXml(document.title)}</title>
   <link>${escapeXml(`${siteConfig.url}${contentUrl(document)}`)}</link>
-  <guid isPermaLink="true">${escapeXml(`${siteConfig.url}${contentUrl(document)}`)}</guid>
+  <guid isPermaLink="false">${escapeXml(`digital-dialogue:${contentUrl(document)}`)}</guid>
   <description>${escapeXml(document.summary)}</description>
   <category>${escapeXml(document.category)}</category>
   <pubDate>${new Date(document.date).toUTCString()}</pubDate>

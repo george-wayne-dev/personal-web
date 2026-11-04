@@ -106,4 +106,4 @@ export type ContentDocument = ContentFrontmatter & {
   body: string;
 };
 
-export type ContentPreview = Omit<ContentDocument, "body">;
+export type ContentPreview = Omit<ContentDocument, "body" | "reviews">;

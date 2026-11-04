@@ -48,7 +48,13 @@ export async function generateMetadata({
     : undefined;
   return document
     ? {
-        title: document.title,
+        // 作品和网站同名时，避免标题变成「数字对白 | 数字对白」。
+        title:
+          document.title === siteConfig.name
+            ? {
+                absolute: `${document.title} | ${collectionMeta[document.collection].label}`,
+              }
+            : document.title,
         description: document.summary,
         alternates: { canonical: contentUrl(document) },
         robots: document.draft ? { index: false, follow: false } : undefined,

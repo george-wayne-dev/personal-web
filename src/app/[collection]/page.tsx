@@ -27,8 +27,10 @@ export async function generateMetadata({
 export default async function CollectionPage({ params }: PageProps) {
   const { collection } = await params;
   if (!isContentCollection(collection)) notFound();
-  const items = getCollection(collection).map(({ body, ...item }) => {
+  // 这些数据会发到浏览器。reviews 可能指向还没发布的文章，不能带上。
+  const items = getCollection(collection).map(({ body, reviews, ...item }) => {
     void body;
+    void reviews;
     return item;
   });
 

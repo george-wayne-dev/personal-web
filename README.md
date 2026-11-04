@@ -142,4 +142,6 @@ canonical、分享图、RSS、Sitemap、robots 和结构化数据中的绝对地
 3. 检查线上首页的 canonical、`/rss.xml` 和 `/sitemap.xml` 是否已换成新域名。
 4. 为 `*.pages.dev` 设置到新域名的 301 跳转（Cloudflare Bulk Redirects），避免两个地址同时被收录。
 
+RSS 条目的 `guid` 不含域名，换域名不会让订阅者重复收到旧文章。
+
 原“笔记”已并入“文章”，短记录与长文统一保存在 `content/essays/`，按分类和标签区分。私人内容迁移时保留草稿状态；模板仅保留作品与文章两类。
