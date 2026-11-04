@@ -111,7 +111,7 @@
 
 .landscape-hello {
   margin: 0 0 20px;
-  color: #58746f;
+  color: var(--land-muted);
   font-size: 13px;
   letter-spacing: 0.14em;
 }
@@ -252,7 +252,7 @@
   gap: 7px;
   color: #486344;
   background: #d9e9bfcc;
-  font-size: 11px;
+  font-size: 12px;
   cursor: pointer;
 }
 
@@ -350,7 +350,7 @@
 
 .landscape-project-category {
   color: var(--land-muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .landscape-project :is(h2, h3) {
@@ -430,8 +430,8 @@
 }
 
 .landscape-essay time {
-  color: #6b7960;
-  font: 11px/1.8 var(--font-mono);
+  color: var(--land-muted);
+  font: 13px/1.8 var(--font-mono);
 }
 
 .landscape-essay h3 {
@@ -447,7 +447,7 @@
   font-size: 19px;
 }
 .landscape-essay > a:hover h3 {
-  color: #48805b;
+  color: #396c44;
 }
 
 .landscape-footer {
@@ -505,7 +505,7 @@
   display: block;
   margin-top: 8px;
   color: #c5b4a6;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .forest-landscape {
@@ -569,7 +569,7 @@
   }
   .landscape-hello {
     margin-bottom: 20px;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.1em;
   }
   .landscape-hero h1 {
@@ -609,7 +609,7 @@
     right: 12px;
     bottom: 6px;
     min-height: 32px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .landscape-projects {
     padding-block: 45px 58px;
@@ -653,7 +653,7 @@
   }
   .landscape-project-empty p {
     margin-top: 8px;
-    font-size: 12px;
+    font-size: 13px;
   }
   .landscape-essays {
     padding-block: 48px 60px;

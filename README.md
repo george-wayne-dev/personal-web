@@ -66,7 +66,7 @@ content/
 | `results.users`、`results.revenue`、`results.asOf` | 真实结果：用户数、收入、数据截至日期；为 0 也要写 |
 | `reviews`                                          | 复盘文章的站内路径列表，如 `/essays/slug`         |
 
-草稿可以留空；`draft: false` 的作品缺少前四项中的任何一项，或 `reviews` 指向不存在的文章，`pnpm content:check` 会失败。`reviews` 指向尚未发布的文章时，正式站点不显示该篇；没有已发布的复盘时显示「复盘待写」。
+草稿可以留空；`draft: false` 的作品缺少前四项中的任何一项，或 `reviews` 指向不存在的文章，`pnpm content:check` 会失败。所有公开内容的 Frontmatter 都不能保留模板占位词（待写、待填写、待整理、待分类、`replace-with-`），正文不能为空或保留模板提示语。`reviews` 指向尚未发布的文章时，正式站点不显示该篇；没有已发布的复盘时显示「复盘待写」。
 
 ## 订阅入口
 

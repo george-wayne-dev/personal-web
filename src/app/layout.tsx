@@ -3,10 +3,36 @@ import { siteConfig } from "@/lib/site";
 import { DevRefresh } from "@/components/content/dev-refresh";
 import "./globals.css";
 
+const homeTitle = `${siteConfig.name} | 一个人 + AI，从需求到上线做产品`;
+
+const authorId = `${siteConfig.url}/#author`;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.url,
+      description: siteConfig.description,
+      inLanguage: "zh-CN",
+      author: { "@id": authorId },
+    },
+    {
+      "@type": "Person",
+      "@id": authorId,
+      name: siteConfig.author,
+      url: `${siteConfig.url}/about`,
+      sameAs: [siteConfig.contacts.github, siteConfig.contacts.x].filter(
+        Boolean,
+      ),
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.name,
+    default: homeTitle,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -14,10 +40,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "zh_CN",
     siteName: siteConfig.name,
-    title: siteConfig.name,
+    title: homeTitle,
     description: siteConfig.description,
   },
-  twitter: { card: "summary" },
+  twitter: { card: "summary_large_image" },
   robots:
     process.env.CONTENT_PREVIEW === "true" &&
     process.env.NODE_ENV !== "production"
@@ -43,21 +69,20 @@ export default function RootLayout({
       id="top"
       className="h-full antialiased"
     >
+      <head>
+        {/* Not in metadata: a page's alternates replace the layout's entirely. */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={siteConfig.name}
+          href={siteConfig.contacts.rss || "/rss.xml"}
+        />
+      </head>
       <body className="min-h-full">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: siteConfig.name,
-              url: siteConfig.url,
-              description: siteConfig.description,
-              sameAs: [
-                siteConfig.contacts.github,
-                siteConfig.contacts.x,
-              ].filter(Boolean),
-            }).replaceAll("<", "\\u003c"),
+            __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c"),
           }}
         />
         {process.env.NODE_ENV === "development" ? <DevRefresh /> : null}

@@ -6,6 +6,7 @@ const httpUrl = z.url().refine((value) => /^https?:\/\//.test(value));
 
 const siteFileSchema = z.object({
   name: z.string().min(1),
+  author: z.string().min(1).default("George"),
   description: z.string().min(1),
   url: z.union([
     z.literal(""),
@@ -46,6 +47,7 @@ const exampleUrl = "https://example.com";
 
 const defaults = {
   name: "数字对白",
+  author: "George",
   description:
     "一个人 + AI，从需求到上线做产品，公开记录每个产品的需求、取舍和真实结果。",
   url: "",

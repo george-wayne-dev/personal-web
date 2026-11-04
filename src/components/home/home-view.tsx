@@ -34,7 +34,9 @@ export function HomeView({ projects, essays, featured }: HomeViewProps) {
       <main id="main-content" tabIndex={-1}>
         <AnimatedSky>
           <section className="landscape-hero" aria-labelledby="hero-title">
-            <p className="landscape-hello">欢迎来到我的一小片天地</p>
+            <p className="landscape-hello">
+              我是 George，9 年 Web 开发，现在独立做产品
+            </p>
             <h1 id="hero-title">
               一个人 + AI，
               <br />

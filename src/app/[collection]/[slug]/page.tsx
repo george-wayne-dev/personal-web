@@ -59,7 +59,8 @@ export async function generateMetadata({
           url: contentUrl(document),
           publishedTime: document.date,
           modifiedTime: document.updated ?? document.date,
-          images: document.cover ? [document.cover] : undefined,
+          // A page's openGraph replaces the layout's, including the default image.
+          images: [document.cover ?? "/opengraph-image"],
         },
       }
     : { title: "未找到内容" };
@@ -69,9 +70,9 @@ function formatResults(results?: ProjectResults) {
   if (!results) return "";
   const filled = (value: string | number) => String(value).trim() !== "";
   return [
-    filled(results.users) ? `用户 ${results.users}` : "",
-    filled(results.revenue) ? `收入 ${results.revenue}` : "",
-    results.asOf ? `截至 ${displayDate(results.asOf)}` : "",
+    filled(results.users) ? `用户 ${results.users}` : "",
+    filled(results.revenue) ? `收入 ${results.revenue}` : "",
+    results.asOf ? `截至 ${displayDate(results.asOf)}` : "",
   ]
     .filter(Boolean)
     .join(" · ");
@@ -107,7 +108,11 @@ export default async function ContentPage({ params }: PageProps) {
     datePublished: document.date,
     dateModified: document.updated ?? document.date,
     url: new URL(contentUrl(document), siteConfig.url).href,
-    author: { "@type": "Person", name: siteConfig.name },
+    author: {
+      "@type": "Person",
+      name: siteConfig.author,
+      url: `${siteConfig.url}/about`,
+    },
     ...(document.cover
       ? { image: new URL(document.cover, siteConfig.url).href }
       : {}),

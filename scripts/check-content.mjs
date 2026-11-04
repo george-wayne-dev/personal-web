@@ -45,6 +45,23 @@ function visit(node, callback) {
   callback(node);
   for (const child of node.children ?? []) visit(child, callback);
 }
+function nodeText(node) {
+  return node.value ?? (node.children ?? []).map(nodeText).join("");
+}
+function paragraphs(tree) {
+  return (tree.children ?? [])
+    .filter((node) => node.type === "paragraph")
+    .map(nodeText);
+}
+// Published content must replace what templates and skeletons leave behind.
+const placeholderWords = /待写|待填写|待整理|待分类|replace-with-/;
+const templatePrompts = new Set(
+  [path.resolve("templates"), path.join(path.dirname(root), "_templates")]
+    .flatMap(walk)
+    .flatMap((file) =>
+      paragraphs(parser.parse(matter(fs.readFileSync(file, "utf8")).content)),
+    ),
+);
 for (const collection of collections) {
   for (const file of walk(path.join(root, collection))) {
     try {
@@ -66,7 +83,15 @@ for (const collection of collections) {
           (_, index) => `section-${String(index + 1).padStart(2, "0")}`,
         ),
       );
-      documents.push({ ...data, collection, file, url, tree, anchors });
+      documents.push({
+        ...data,
+        frontmatter: data,
+        collection,
+        file,
+        url,
+        tree,
+        anchors,
+      });
       if (!data.draft) routes.add(url);
     } catch (error) {
       failures.push(`${file}: ${error.message}`);
@@ -108,6 +133,18 @@ function checkUrl(value, document, resource = false) {
 }
 for (const document of documents.filter((item) => !item.draft)) {
   if (document.cover) checkUrl(document.cover, document, true);
+  if (placeholderWords.test(JSON.stringify(document.frontmatter)))
+    failures.push(
+      `${document.file}: Frontmatter 还留着模板占位词（待写、待填写、待整理、待分类等）`,
+    );
+  if (paragraphs(document.tree).some((text) => templatePrompts.has(text)))
+    failures.push(`${document.file}: 正文还留着模板里的提示语`);
+  if (
+    !(document.tree.children ?? []).some(
+      (node) => !["heading", "definition"].includes(node.type),
+    )
+  )
+    failures.push(`${document.file}: 正文还没有内容`);
   const definitions = new Map();
   visit(document.tree, (node) => {
     if (node.type === "definition") definitions.set(node.identifier, node);
@@ -157,6 +194,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `内容检查通过：${documents.filter((item) => !item.draft).length} 篇公开内容，${documents.filter((item) => item.draft).length} 篇草稿。已检查元信息、作品必填字段、重复地址、内部链接、章节锚点与本地资源。`,
+    `内容检查通过：${documents.filter((item) => !item.draft).length} 篇公开内容，${documents.filter((item) => item.draft).length} 篇草稿。已检查元信息、作品必填字段、模板占位、重复地址、内部链接、章节锚点与本地资源。`,
   );
 }
