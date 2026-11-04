@@ -13,7 +13,7 @@
     "check": "pnpm lint && pnpm typecheck && pnpm build",
     "preview": "node scripts/preview.mjs",
     "content:check": "node scripts/check-content.mjs",
-    "content:sync": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/sync-content.mjs"
+    "content:publish": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/publish-content.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",
